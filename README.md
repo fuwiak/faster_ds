@@ -1,2 +1,12 @@
 # faster_ds
-Numpy/Pandas based module make faster data analysis
+Open Source Numpy/Pandas based module make faster data analysis
+
+#installation
+
+
+
+# classification
+
+# regression
+
+# NLP
