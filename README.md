@@ -1,5 +1,5 @@
 # faster_ds
-Open Source Numpy/Pandas based module make faster data analysis
+Open Source Numpy/Pandas based module to make faster data analysis in console
 
 # installation instruction
 ```{BASH}
