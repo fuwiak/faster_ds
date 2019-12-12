@@ -2,6 +2,7 @@
 Open Source Numpy/Pandas based module to make faster data analysis in console
 
 # installation instruction
+
 ```{BASH}
 
 virtualenv -p python3 env
@@ -10,13 +11,19 @@ pip install -r requirements.txt
 
 ```
 
-
-
-
-
-
 # classification
 
+- methods
+- pipeline
+
 # regression
+toDo
+
+- methods
+- pipeline
+
 
 # NLP
+
+- methods
+- pipeline
