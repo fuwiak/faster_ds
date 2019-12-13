@@ -32,8 +32,18 @@ class model:
 		train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio)
 		return train_X, test_X, train_y, test_y 
 
-	def set_algorithm_name():
-		#list_of_algo
+
+	def na_handling(self, name_of_strategy):
+		#list of stategies -> mean, mode, 0, next_row, previous_row
+		pass
+
+	def na_non_na_set(self, data):
+		#split set to set with all na's and without
+		pass
+
+
+	def print_algorithm_list():
+		#print list of available algorithms
 		pass
 
 	def plot_roc_curve():
@@ -49,7 +59,8 @@ class model:
 	def confusion_matrix():
 		pass
 
-	def compare_algorithms():
+	def compare_algorithms(self, sorted_by_measure='accuracy'):
+		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
 		pass
 
 	def random_search():
@@ -62,7 +73,7 @@ class model:
 		pass
 
 
-	def show_random_time():
+	def show_random_serch_time():
 		pass
 
 	def dump_to_pickle():
@@ -70,6 +81,8 @@ class model:
 
 	def read_pickle():
 		pass
+
+
 
 
 

@@ -11,17 +11,30 @@ pip install -r requirements.txt
 
 ```
 
+
+#temporal workflow
+
+toDO
+
+- Docs
+
+
 # classification
 
 - methods
 - pipeline
+- visualizations
 
 # regression
-toDo
+
 
 - methods
 - pipeline
 
+# clasterization
+
+- methods
+- pipeline
 
 # NLP
 
