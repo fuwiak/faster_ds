@@ -6,27 +6,28 @@ class model:
 	def __init__(self, data):
 		self.data = data
 
-	def csv_as_df(self, header=True, sep="\t"):
-		return pd.read_csv(self.data)
+	def csv_as_df(self, sep="\t"):
+		return pd.read_csv(self.data, sep)
 
 	def column_names(self):
 		return list(pd.read_csv(self.data).columns)
 
 
-	def set_X(self, X_name):
+	def set_X(self, X_name,sep="\t"):
 		# assert type(X_name) == 'str'
 		#X_name have to be a list
-		df = pd.read_csv(self.data)
+		df = pd.read_csv(self.data, sep)
 
 		return df[X_name]
 
-	def set_Y(self, Y_name):
-		df = pd.read_csv(self.data)
+	def set_Y(self, Y_name, sep="\t"):
+		df = pd.read_csv(self.data,sep)
 
 		return df[Y_name]
 
-	def test_train(self, ratio,random_state=100):
+	def test_train(self,X, y, ratio,random_state=100):
 		from sklearn.model_selection import train_test_split
+
 
 		train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio)
 		return train_X, test_X, train_y, test_y 
