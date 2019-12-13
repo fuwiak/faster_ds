@@ -19,11 +19,13 @@ toDO
 - Docs
 
 
-# classification
+# classification(binary)
 
 - methods
 - pipeline
 - visualizations
+
+# multiclass classification
 
 # regression
 
@@ -35,6 +37,8 @@ toDO
 
 - methods
 - pipeline
+
+# dimension reduction
 
 # NLP
 
