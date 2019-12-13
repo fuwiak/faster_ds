@@ -1,6 +1,12 @@
 import pandas as pd
 
 
+'''
+
+methods for binary classification
+
+'''
+
 
 class model:
 	def __init__(self, data):
@@ -46,8 +52,19 @@ class model:
 		#print list of available algorithms
 		pass
 
-	def plot_roc_curve():
-		pass
+	def plot_roc_curve(self, train_X, train_y, test_X):
+		predictions = clf.fit(train_X, train_y).predict(test_X)
+		fp, tp, th = roc_curve(test_y, predictions)
+		roc_auc_mla = auc(fp, tp)
+		plt.plot(fp, tp, lw=2, alpha=0.3)
+		plt.title('ROC Curve comparison')
+		plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+		plt.plot([0,1],[0,1],'r--')
+		plt.xlim([0,1])
+		plt.ylim([0,1])
+		plt.ylabel('True Positive Rate')
+		plt.xlabel('False Positive Rate')    
+		plt.show()
 
 	def plot_log_loss():
 		pass
