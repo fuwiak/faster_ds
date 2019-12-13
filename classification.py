@@ -6,7 +6,7 @@ class model:
 	def __init__(self, data):
 		self.data = data
 
-	def csv_as_df(self):
+	def csv_as_df(self, header=True, sep="\t"):
 		return pd.read_csv(self.data)
 
 	def column_names(self):
@@ -28,7 +28,7 @@ class model:
 	def test_train(self, ratio,random_state=100):
 		from sklearn.model_selection import train_test_split
 
-		train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio, random_state)
+		train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio)
 		return train_X, test_X, train_y, test_y 
 
 	def set_algorithm_name():
