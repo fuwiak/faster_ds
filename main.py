@@ -2,7 +2,7 @@ import classification as cl
 
 
 if __name__ == "__main__":
-	md = cl.model("titanic.csv")
+	md = cl.model("sample_data/titanic.csv")
 	df = md.csv_as_df()
 
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
 	X = md.set_X(X_names)
 	y = md.set_Y(y_name)
 	train_X, test_X, train_y, test_y = md.test_train(X,y, 0.3)
-	
+
 
 
 
