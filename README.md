@@ -45,6 +45,9 @@ please check out function_description_style.py
 
 # dimension reduction
 
+#fake(sample) data
+
+
 # NLP
 
 - methods
