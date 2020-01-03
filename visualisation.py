@@ -89,6 +89,12 @@ def show_hist(df, bins=5):
 	col.hist(bins=bins)
 	"""
 
+def show_heatmap(df):
+	pass
+
+
+
+
 
 
 
