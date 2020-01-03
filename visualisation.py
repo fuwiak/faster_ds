@@ -3,18 +3,71 @@ import classification as cl
 
 
 def select_categorical(df):
-	'''
-	
-	select category/object columns from df
-
-
-	returns dataframe
-
-	'''
+	"""
+    Returns dataframe with object type
+    
+    Parameters
+    -----------
+    df
+        Pandas data frame with item data
+           
+    
+    Returns
+    -----------
+    col
+    	Pandas dataframe with object data
+    """
 
 
 	col=df.select_dtypes(include=['object'])
 	return col
+
+
+def select_numerical(df):
+	"""
+    Returns dataframe with object type
+    
+    Parameters
+    -----------
+    df
+        Pandas data frame with item data
+           
+    
+    Returns
+    -----------
+    col
+    	Pandas dataframe with numeric data
+    """
+
+
+	col=df.select_dtypes(include=['float', 'int'])
+	return col
+
+
+
+def select_logical(df):
+	"""
+    Returns dataframe with object type
+    
+    Parameters
+    -----------
+    df
+        Pandas data frame with item data
+           
+    
+    Returns
+    -----------
+    col
+    	Pandas dataframe with numeric data
+    """
+
+
+	col=df.select_dtypes(include=['bool'])
+	return col
+
+
+
+
 
 
 md = cl.model("sample_data/titanic.csv")
