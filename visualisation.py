@@ -65,18 +65,44 @@ def select_logical(df):
 	col=df.select_dtypes(include=['bool'])
 	return col
 
+def show_hist(df, bins=5):
+	"""
+    show histogram on numerical data
+    
+    Parameters
+    -----------
+    df
+        Pandas data frame with item data
+    bins
+        Number of bins, default=5
+           
+    
+    -----------
 
 
 
 
 
-md = cl.model("sample_data/titanic.csv")
-df = md.csv_as_df()
-columns = md.column_names()
-columns = columns[0].split("\t")
-y_name = "Survived"
-X_names = [x for x in columns if x !=y_name]
-X = md.set_X(X_names) #type dataframe
-y = md.set_Y(y_name)
+
+
+	col=df.select_dtypes(include=['float', 'int'])
+	col.hist(bins=bins)
+	"""
+
+
+
+
+
+
+if __name__ == "__main__":
+
+	md = cl.model("sample_data/titanic.csv")
+	df = md.csv_as_df()
+	columns = md.column_names()
+	columns = columns[0].split("\t")
+	y_name = "Survived"
+	X_names = [x for x in columns if x !=y_name]
+	X = md.set_X(X_names) #type dataframe
+	y = md.set_Y(y_name)
 
 
