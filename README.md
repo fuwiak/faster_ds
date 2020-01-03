@@ -1,6 +1,11 @@
 # faster_ds
 Open Source Numpy/Pandas based module to make faster data analysis in console
 
+
+Do you have any questions or suggest? Please edit this file -----> *feature_request.md*
+
+
+
 # installation instruction
 
 ```{BASH}
