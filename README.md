@@ -31,6 +31,9 @@ please check out function_description_style.py
 # visualization
 
 
+# feature selecting
+- pipeline
+
 
 
 # classification(binary)
