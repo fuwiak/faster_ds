@@ -15,4 +15,12 @@ def count_missing(df, total=True):
 		print(df.isnull().sum().sum())
 	else:
 		#by column
-		print(print(df.isnull().sum())
+		print(print(df.isnull().sum()))
+
+
+def normalization(df):
+    normalized = df.apply(lambda x: x/max(x))
+    return normalized
+
+
+ 
