@@ -62,8 +62,9 @@ please check out function_description_style.py
 
 # dimension reduction
 
-#fake(sample) data
+# fake(sample) data
 
+# ready xgboost
 
 # NLP
 
