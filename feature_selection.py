@@ -87,4 +87,42 @@ def fast_regression_pipelines(X,y, ratio=0.3,random_state=42):
 	return pipe_dict[best_clf]
 
 
+def regression_dataframe_metrics(X,y, ratio=0.3,random_state=42):
+	pipelines = [pipe_lr, pipe_xgb, pipe_dt, pipe_lin]
+	MLA = pipelines
+
+	pipe_dict = {0: 'Logistic Regression', 1: 'xboost', 2: 'Decision Tree', 3:'Linear Regression'}
+
+
+
+	MLA_columns = []
+	MLA_compare = pd.DataFrame(columns = MLA_columns)
+	row_index = 0
+	for alg in MLA:
+	    predicted = alg.fit(train_X, train_y).predict(test_X)
+
+	    MLA_name = list(pipe_dict.values())[row_index]
+	    MLA_compare.loc[row_index,' Name'] = MLA_name
+	    MLA_compare.loc[row_index, 'MAE'] = metrics.mean_absolute_error(predicted, test_y)
+	    MLA_compare.loc[row_index, 'MSE'] = metrics.mean_squared_error(predicted, test_y)
+	    MLA_compare.loc[row_index, 'RMSE'] = np.sqrt(metrics.mean_squared_error(predicted, test_y))
+	    MLA_compare.loc[row_index, 'R2'] = alg.score(X,y)
+	    
+	    
+	    
+	    
+	    row_index+=1
+
+	MLA_compare.sort_values(by = ['R2'], ascending = False, inplace = True)
+	
+	return MLA_compare
+
+
+
+
+
+
+
+
+
 
