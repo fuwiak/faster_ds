@@ -1,6 +1,25 @@
 import pandas as pd
 
 
+def set_X_y(df, y_name):
+
+	X = df[df.columns.difference([y_name])]
+	y = df[y_name]
+
+	return X,y
+
+
+def get_numerical_columns(df):
+	numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+	numerical_columns = df.select_dtypes(include=numerics).columns
+	return df[numerical_columns]
+
+def get_numerical_columns(df):
+	category = ['object']
+	numerical_columns = df.select_dtypes(include=category).columns
+	return df[numerical_columns]
+
+
 
 def is_missing(df):
     "Determine if ANY Value in a Series is Missing"
@@ -47,6 +66,8 @@ def remove_to_lot_missing(df, threshold=0.7):
 	df_missing = missing.index[train_missing > threshold]
 	result = df.drop(columns = missing)
 	return result
+
+
 
 
 
