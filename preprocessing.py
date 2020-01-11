@@ -23,4 +23,7 @@ def normalization(df):
     return normalized
 
 
- 
+def encode_df(df):
+	from sklearn.preprocessing import LabelEncoder
+	df = df.apply(LabelEncoder().fit_transform)
+	return df
