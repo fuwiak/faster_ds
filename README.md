@@ -36,6 +36,7 @@ please check out function_description_style.py
 
 # feature selecting
 - pipeline
+- filter, wrapper, embedded
 
 
 
