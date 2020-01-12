@@ -4,6 +4,48 @@
 #filter methods
 
 
+#Using Pearson Correlation
+
+def cor_selector(X, y, N=100):
+    cor_list = []
+    feature_name = X.columns.tolist()
+    # calculate the correlation with y for each feature
+    for i in X.columns.tolist():
+        cor = np.corrcoef(X[i], y)[0, 1]
+        cor_list.append(cor)
+    # replace NaN with 0
+    cor_list = [0 if np.isnan(i) else i for i in cor_list]
+    # feature name
+    cor_feature = X.iloc[:,np.argsort(np.abs(cor_list))[-N:]].columns.tolist()
+    # feature selection? 0 for not select, 1 for select
+    cor_support = [True if i in cor_feature else False for i in feature_name]
+    return cor_support, cor_feature
+
+# cor_support, cor_feature = cor_selector(X, y)
+# print(str(len(cor_feature)), 'selected features')
+# print("list of selected columns ", cor_feature)
+
+#CHI2
+
+def chi2_selector(X,y, N=100):
+	from sklearn.feature_selection import SelectKBest
+	from sklearn.feature_selection import chi2
+	from sklearn.preprocessing import MinMaxScaler
+	X_norm = MinMaxScaler().fit_transform(X)
+	chi_selector = SelectKBest(chi2, k=100)
+	chi_selector.fit(X_norm, y)
+	chi_support = chi_selector.get_support()
+	chi_feature = X.loc[:,chi_support].columns.tolist()
+	print(str(len(chi_feature)), 'selected features')
+	print("list of selected columns ", chi_feature)
+	return chi_feature
+
+
+
+
+
+
+
 
 
 #wrapper methods
@@ -116,6 +158,7 @@ def regression_dataframe_metrics(X,y, ratio=0.3,random_state=42):
 	MLA_compare.sort_values(by = ['R2'], ascending = False, inplace = True)
 	
 	return MLA_compare
+
 
 
 

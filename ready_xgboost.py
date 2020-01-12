@@ -34,3 +34,36 @@ def pickle_acc(clf, X_test, Y_test):
 
 	result = clf.score(X_test, Y_test)
 	return(result)
+
+
+
+def create_data_matrix(X,y):
+	features = X
+	target = y
+	dmatrix = xg.DMatrix(features.values,
+	                     target.values,
+	                     feature_names=features.columns.values)
+	# clf = xg.train(params, dmatrix)
+	return dmatrix
+
+
+
+
+
+def show_tree_importances(**parameters, data_dmatrix):
+
+
+
+	xg_reg = xgb.train(params=parameters, dtrain=data_dmatrix, num_boost_round=10)
+
+	import matplotlib.pyplot as plt
+
+	xgb.plot_tree(xg_reg,num_trees=0)
+	plt.rcParams['figure.figsize'] = [50, 10]
+	plt.show()
+
+
+	xgb.plot_importance(xg_reg)
+	plt.rcParams['figure.figsize'] = [5, 5]
+	plt.show()
+	
