@@ -66,9 +66,4 @@ please check out function_description_style.py
 
 # ready xgboost
 
-# NLP
 
-- methods
-- pipeline
-
-# Computer Vision
