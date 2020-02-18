@@ -62,7 +62,7 @@ print(df)
 
 ```
 >   
-
+```
 Prefix                Name  Birth Date           Phone Number  ...  Year      Time                            Link HaveAjob
 0    Dr.    Nathan Hernandez  18-06-1989  001-153-601-9176x8231  ...  1992  03:23:14          https://www.moore.com/        0
 1    Dr.       Cameron Jones  20-01-2019          (175)943-0445  ...  2009  19:59:41          http://www.martin.org/        1
@@ -73,8 +73,7 @@ Prefix                Name  Birth Date           Phone Number  ...  Year      Ti
 6   Mrs.      Crystal Thomas  26-02-2011       780.307.6060x053  ...  2017  02:36:27    http://www.ortiz-miller.com/        1
 7   Mrs.  Angelica Zimmerman  12-12-2009          (554)926-4554  ...  2018  13:42:11   http://www.roberts-ellis.com/        1
 8    Dr.      Keith Knapp MD  11-03-1982       001-075-523-8781  ...  1999  03:04:56  http://www.phillips-black.com/        0
-9   Mrs.        Rachel Allen  10-12-1998     418-099-0859x35240  ...  1989  09:13:26          https://www.evans.com/        1
-
+9   Mrs.        Rachel Allen  10-12-1998     418-099-0859x35240  ...  1989  09:13:26          https://www.evans.com/        ```
 
 # ready xgboost
 
