@@ -2,6 +2,7 @@
 
 
 def abc(self, arg1, arg2,...):
+    pass
 
 
  """
@@ -28,6 +29,5 @@ def abc(self, arg1, arg2,...):
         number of items to recommend
     """
 
-    pass
-
+   
     return foo
