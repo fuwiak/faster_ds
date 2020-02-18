@@ -2,6 +2,7 @@ from faker import Faker
 import pandas as pd
 import datetime
 import numpy as np
+import matplotlib.pylab as plt
 
 '''
 
@@ -125,16 +126,17 @@ class fake_data:
 		return df
 
 	@staticmethod
-	def clasterization_data(self, *params):
+	def clasterization_data(n_samples=1000, n_features=3):
 		from sklearn.datasets.samples_generator import make_blobs
 
-		centers = [(-5, -5), (5, 5)]
-		cluster_std = [0.8, 1]
+		centers = [(-5, -5), (5, 5), (10, 10)]
+		cluster_std = [0.8, 1, 2]
 
-		X, y = make_blobs(n_samples=100, cluster_std=cluster_std, centers=centers, n_features=2, random_state=1)
+		X, y = make_blobs(n_samples=n_samples, cluster_std=cluster_std, centers=centers, n_features=n_features, random_state=1)
 
 		plt.scatter(X[y == 0, 0], X[y == 0, 1], color="red", s=10, label="Cluster1")
 		plt.scatter(X[y == 1, 0], X[y == 1, 1], color="blue", s=10, label="Cluster2")
+		plt.scatter(X[y == 2, 0], X[y == 1, 1], color="pink", s=10, label="Cluster3")
 		plt.show()
 
 
