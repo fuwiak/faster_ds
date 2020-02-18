@@ -2,8 +2,6 @@
 Open Source Numpy/Pandas based module to make faster data analysis in console
 
 
-Do you have any questions or suggest? Please edit this file -----> *feature_request.md*
-
 ## Instruction for contributors
 
 click **fork** or type in console
@@ -15,11 +13,17 @@ click **fork** or type in console
 - source env_name/bin/activate
 - pip install -r requirements.txt
 
+Do you have any questions or suggest? Please edit this file -----> *feature_request.md*
+
+Please check out function_description_style.py
+Please write code tests.
+
+
 # temporal workflow
 
 toDO
 
-please check out function_description_style.py
+
 
 
 
