@@ -53,7 +53,13 @@ Please write code tests.
 # dimension reduction
 
 # fake(sample) data
-Sample usage:
+```{BASH}
+
+python3 -i generate_fake_data.py
+
+```
+
+**Sample usage:**
 ```{Python}
 nrow=10
 df = fake_data()
