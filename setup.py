@@ -24,7 +24,7 @@ if __name__ == "__main__":
     try:
         GITHUB_USERNAME = package.__github_username__
     except:
-        GITHUB_USERNAME = "Unknown-Github-Username"
+        GITHUB_USERNAME = "fuwiak"
 
     # Short description will be the description on PyPI
     try:
