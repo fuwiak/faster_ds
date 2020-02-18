@@ -61,7 +61,9 @@ df = df.classification_data(nrow)
 print(df)
 
 ```
->   Prefix                Name  Birth Date           Phone Number  ...  Year      Time                            Link HaveAjob
+>   
+
+Prefix                Name  Birth Date           Phone Number  ...  Year      Time                            Link HaveAjob
 0    Dr.    Nathan Hernandez  18-06-1989  001-153-601-9176x8231  ...  1992  03:23:14          https://www.moore.com/        0
 1    Dr.       Cameron Jones  20-01-2019          (175)943-0445  ...  2009  19:59:41          http://www.martin.org/        1
 2   Mrs.       Kathryn Drake  15-11-2016          (887)351-7584  ...  2017  20:18:15              http://farmer.com/        0
