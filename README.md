@@ -53,6 +53,15 @@ Please write code tests.
 # dimension reduction
 
 # fake(sample) data
+Sample usage:
+```
+nrow=10
+df = fake_data()
+df = df.classification_data(nrow)
+print(df)
+
+```
+
 
 # ready xgboost
 
