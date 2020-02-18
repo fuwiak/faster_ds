@@ -54,14 +54,15 @@ Please write code tests.
 
 # fake(sample) data
 Sample usage:
-```
+```{Python}
 nrow=10
 df = fake_data()
 df = df.classification_data(nrow)
 print(df)
 
 ```
->  Output 
+>  Output
+
 ```
 Prefix                Name  Birth Date           Phone Number  ...  Year      Time                            Link HaveAjob
 0    Dr.    Nathan Hernandez  18-06-1989  001-153-601-9176x8231  ...  1992  03:23:14          https://www.moore.com/        0
@@ -76,8 +77,5 @@ Prefix                Name  Birth Date           Phone Number  ...  Year      Ti
 9   Mrs.        Rachel Allen  10-12-1998     418-099-0859x35240  ...  1989  09:13:26          https://www.evans.com/        ```
 
 
-
-
-# ready xgboost
 
 
