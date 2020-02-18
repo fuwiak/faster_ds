@@ -15,23 +15,6 @@ click **fork** or type in console
 - source env_name/bin/activate
 - pip install -r requirements.txt
 
-
- 
-
-
-
-
-# installation instruction
-
-```{BASH}
-
-virtualenv -p python3 env
-source env/bin/activate
-pip install -r requirements.txt
-
-```
-
-
 # temporal workflow
 
 toDO
