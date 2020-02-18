@@ -18,18 +18,6 @@ Do you have any questions or suggest? Please edit this file -----> *feature_requ
 Please check out function_description_style.py
 Please write code tests.
 
-
-# temporal workflow
-
-toDO
-
-
-
-
-
-
-- Docs
-
 # preprocessing
 
 
