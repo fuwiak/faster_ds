@@ -72,22 +72,6 @@ new_df = remove_to_lot_missing(df, threshold=0.7)
 
 
 ```
-	def remove_to_lot_missing(df, threshold=0.7):
-		missing = (df.isnull().sum() / len(df))
-		df_missing = missing.index[train_missing > threshold]
-		result = df.drop(columns = missing)
-		return result
-
-
-
-
-
-
-
-
-
-
-
 
 
 # visualization
