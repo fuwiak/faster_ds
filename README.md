@@ -27,6 +27,61 @@ Please write code tests.
 X, y = set_X_y(df, y_name)
 ```	
 
+## split dataframe to numerical and categorical columns
+```{Python}
+X_num = get_numerical_columns(df)
+X_cat = get_categorical_columns(df)
+
+## check whether yours dataframe has missing values
+```{Python}
+is_missing(df)
+
+#True or False
+
+```
+
+## Count Missing Values in DataFrame
+```{Python}
+num_of_missing = count_missing(df, total=True):
+```	
+
+## Normalize columns in dataframe
+```{Python}
+norm_df = normalization(df)
+```
+
+## Encode dataframe
+
+
+	def encode_to_num_df(df):
+		from sklearn.preprocessing import LabelEncoder
+		df = df.apply(LabelEncoder().fit_transform)
+		return df
+
+	@staticmethod
+	def one_hot_encode(df):
+		# One hot encoding
+		df  = pd.get_dummies(df)
+		return df
+
+	@staticmethod
+	def remove_collinear_var(df,threshold=0.9):
+		"""Remove Collinear Variables"""
+		corr_matrix = df.corr().abs()
+		upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
+		to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
+		result = df.drop(columns = to_drop)
+		return result
+
+	@staticmethod
+	def remove_to_lot_missing(df, threshold=0.7):
+		missing = (df.isnull().sum() / len(df))
+		df_missing = missing.index[train_missing > threshold]
+		result = df.drop(columns = missing)
+		return result
+
+
+
 
 
 
