@@ -105,6 +105,8 @@ new_df = remove_to_lot_missing(df, threshold=0.7)
 
 # dimension reduction
 
+# NLP
+
 # fake(sample) data
 ```{BASH}
 
@@ -138,6 +140,8 @@ Prefix                Name  Birth Date           Phone Number  ...  Year      Ti
 ```
 
 # ready xgboost
+One-click class to run xboost.
+
 
 
 
