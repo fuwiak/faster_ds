@@ -1,3 +1,26 @@
+#create word cloud
+
+
+
+from wordcloud import WordCloud, STOPWORDS
+stopwords = set(STOPWORDS)
+
+
+
+text=""
+wordcloud = WordCloud(width = 800, height = 800, 
+     
+                stopwords = stopwords, 
+                min_font_size = 8,background_color='white'
+                     ).generate(text)
+
+import matplotlib.pylab as plt
+plt.figure(figsize = (16, 16)) 
+plt.imshow(wordcloud)
+plt.savefig('vacancy_cloud.png')
+
+
+
 class clean_text:
     import string
     import re
