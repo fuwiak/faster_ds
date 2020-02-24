@@ -6,6 +6,35 @@ import numpy as np
 class ProcessedDF:
 
 	@staticmethod
+	def csv_as_df(dataset_name, sep="\t"):
+		"""
+
+		type(dataset_name)==str
+
+		"""
+
+		return pd.read_csv(dataset_name, sep)
+
+
+	@staticmethod
+	def column_names(dataframe):
+		"""
+
+		type(dataframe)==Pandas.dataframe
+
+		return
+
+		list
+
+		"""
+
+
+		return list(dataframe.columns)
+
+
+
+
+	@staticmethod
 	def set_X_y(df, y_name):
 		"""
 		Returns 
@@ -63,6 +92,33 @@ class ProcessedDF:
 	    normalized = df.apply(lambda x: x/max(x))
 	    return normalized
 
+	def na_handling(df, name_of_strategy):
+		# sklearn.impute.SimpleImputer
+
+		
+		#list of stategies -> mean, mode, 0, spefic_value, next_row, previous_row
+
+		if name_of_strategy=="previous_row":
+			return df.fillna(method="backfill", inplace=True)
+		elif name_of_strategy=="next_row":
+			return df.fillna(method="ffill", inplace=True)
+		elif name_of_strategy=="0":
+			return df.fillna(0, inplace=True)
+		elif name_of_strategy=="mean":
+			return df.fillna(df.mean(), inplace=True)
+		elif name_of_strategy=="mode":
+			return df.fillna(df.mode(), inplace=True)
+		else:
+			print("Wrong specified strategy")
+
+
+
+
+	def na_non_na_set(self, data):
+		#split set to set with all na's and without
+		pass
+
+
 	@staticmethod
 	def encode_to_num_df(df):
 		from sklearn.preprocessing import LabelEncoder
@@ -90,6 +146,14 @@ class ProcessedDF:
 		df_missing = missing.index[train_missing > threshold]
 		result = df.drop(columns = missing)
 		return result
+
+	@staticmethod
+	def test_train(X, y, ratio=0.3,random_state=100):
+		from sklearn.model_selection import train_test_split
+
+
+		train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio)
+		return train_X, test_X, train_y, test_y 
 
 
 
