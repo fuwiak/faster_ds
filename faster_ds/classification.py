@@ -11,38 +11,48 @@ methods for binary classification
 class model:
 	
 	@staticmethod
-	def csv_as_df(data, sep="\t"):
+	def csv_as_df(dataset_name, sep="\t"):
 		"""
 
-		type(data)==Pandas.dataframe
+		type(dataset_name)==str
 
 		"""
 
-		return pd.read_csv(data, sep)
+		return pd.read_csv(dataset_name, sep)
 
 
 	@staticmethod
-	def column_names(data):
-		return list(pd.read_csv(data).columns)
+	def column_names(dataframe):
+		"""
+
+		type(dataframe)==Pandas.dataframe
+
+		return
+
+		list
+
+		"""
+
+
+		return list(dataframe.columns)
 
 	@staticmethod
-	def set_X(X_name,sep="\t"):
-		# assert type(X_name) == 'str'
+	def set_X(dataframe, X_name):
 		#X_name have to be a list
-		df = pd.read_csv(data, sep)
+		X = dataframe[X_name]
 
-		return df[X_name]
-
-	@staticmethod
-	def set_Y(Y_name, sep="\t"):
-		df = pd.read_csv(data,sep)
-
-		return df[Y_name]
-
-
+		return X
 
 	@staticmethod
-	def test_train(X, y, ratio,random_state=100):
+	def set_Y(dataframe, y_name):
+		y = dataframe[y_name]
+
+		return dataframe[y_name]
+
+
+
+	@staticmethod
+	def test_train(X, y, ratio=0.3,random_state=100):
 		from sklearn.model_selection import train_test_split
 
 
@@ -63,7 +73,7 @@ class model:
 		#print list of available algorithms
 		pass
 
-	def plot_roc_curve(self, train_X, train_y, test_X):
+	def plot_roc_curve(train_X, train_y, test_X):
 		predictions = clf.fit(train_X, train_y).predict(test_X)
 		fp, tp, th = roc_curve(test_y, predictions)
 		roc_auc_mla = auc(fp, tp)
