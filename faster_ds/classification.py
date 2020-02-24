@@ -16,7 +16,7 @@ class model:
 
 	
 	@staticmethod
-	def plot_roc_curve(train_X, train_y, test_X):
+	def plot_roc_curve(clf, train_X, train_y, test_X):
 		predictions = clf.fit(train_X, train_y).predict(test_X)
 		fp, tp, th = roc_curve(test_y, predictions)
 		roc_auc_mla = auc(fp, tp)
@@ -32,17 +32,31 @@ class model:
 
 	@staticmethod
 	def plot_log_loss():
-		pass
+
+		from sklearn.metrics import log_loss
+		import  matplotlib.pylab  as plt
+		from numpy import array
+		
+		# plot input to loss
+		plt.plot(yhat, losses_0, label='true=0')
+		plt.plot(yhat, losses_1, label='true=1')
+		plt.legend()
+		plt.show()
 
 	@staticmethod
 	def plot_acc_epoch():
 		pass
 
 	@staticmethod
-	def confusion_matrix():
-		pass
+	def confusion_matrix(clf, train_X, train_y, test_y):
+		clf = clf.fit(train_X, train_y)
+		predictions = clf.predict(test_X)
 
-	def compare_algorithms(self, sorted_by_measure='accuracy'):
+		from sklearn.metrics import classification_report
+		print(classification_report(test_y, predictions))
+
+
+	def compare_algorithms(sorted_by_measure='accuracy'):
 		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
 		pass
 
@@ -56,14 +70,19 @@ class model:
 		pass
 
 
-	def show_random_serch_time():
+	def show_random_search_time():
 		pass
 
-	def dump_to_pickle():
-		pass
+	@staticmethod
+	def dump_to_pickle(clf, filename):
+		import pickle
+		pickle.dump(model, open(filename, 'wb'))
 
-	def read_pickle():
-		pass
+	@staticmethod
+	def load_from_pickle(clf, filename):
+		import pickle
+		loaded_model = pickle.load(open(filename, 'rb'))
+		return loaded_model
 
 
 

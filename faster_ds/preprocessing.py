@@ -92,31 +92,39 @@ class ProcessedDF:
 	    normalized = df.apply(lambda x: x/max(x))
 	    return normalized
 
+	@staticmethod
 	def na_handling(df, name_of_strategy):
 		# sklearn.impute.SimpleImputer
 
-		
+
 		#list of stategies -> mean, mode, 0, spefic_value, next_row, previous_row
 
 		if name_of_strategy=="previous_row":
-			return df.fillna(method="backfill", inplace=True)
+			df.fillna(method="backfill", inplace=True)
+			return df
 		elif name_of_strategy=="next_row":
-			return df.fillna(method="ffill", inplace=True)
+			df.fillna(method="ffill", inplace=True)
+			return df
 		elif name_of_strategy=="0":
-			return df.fillna(0, inplace=True)
+			df.fillna(0, inplace=True)
+			return df
+
 		elif name_of_strategy=="mean":
-			return df.fillna(df.mean(), inplace=True)
+			df.fillna(df.mean(), inplace=True)
+			return df
 		elif name_of_strategy=="mode":
-			return df.fillna(df.mode(), inplace=True)
+			df.fillna(df.mode(), inplace=True)
+			return df
 		else:
 			print("Wrong specified strategy")
 
 
 
+	@staticmethod
+	def na_non_na_set(df):
 
-	def na_non_na_set(self, data):
 		#split set to set with all na's and without
-		pass
+		return df[df.isnull().any(axis=1)] 
 
 
 	@staticmethod
@@ -137,14 +145,14 @@ class ProcessedDF:
 		corr_matrix = df.corr().abs()
 		upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
 		to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
-		result = df.drop(columns = to_drop)
+		result = df.drop(columns = to_drop, inplace=True)
 		return result
 
 	@staticmethod
 	def remove_to_lot_missing(df, threshold=0.7):
 		missing = (df.isnull().sum() / len(df))
 		df_missing = missing.index[train_missing > threshold]
-		result = df.drop(columns = missing)
+		result = df.drop(columns = missing, inplace=True)
 		return result
 
 	@staticmethod
