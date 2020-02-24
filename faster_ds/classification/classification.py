@@ -9,29 +9,40 @@ methods for binary classification
 
 
 class model:
-	def __init__(self, data):
-		self.data = data
+	
+	@staticmethod
+	def csv_as_df(data, sep="\t"):
+		"""
 
-	def csv_as_df(self, sep="\t"):
-		return pd.read_csv(self.data, sep)
+		type(data)==Pandas.dataframe
 
-	def column_names(self):
-		return list(pd.read_csv(self.data).columns)
+		"""
+
+		return pd.read_csv(data, sep)
 
 
-	def set_X(self, X_name,sep="\t"):
+	@staticmethod
+	def column_names(data):
+		return list(pd.read_csv(data).columns)
+
+	@staticmethod
+	def set_X(X_name,sep="\t"):
 		# assert type(X_name) == 'str'
 		#X_name have to be a list
-		df = pd.read_csv(self.data, sep)
+		df = pd.read_csv(data, sep)
 
 		return df[X_name]
 
-	def set_Y(self, Y_name, sep="\t"):
-		df = pd.read_csv(self.data,sep)
+	@staticmethod
+	def set_Y(Y_name, sep="\t"):
+		df = pd.read_csv(data,sep)
 
 		return df[Y_name]
 
-	def test_train(self,X, y, ratio,random_state=100):
+
+
+	@staticmethod
+	def test_train(X, y, ratio,random_state=100):
 		from sklearn.model_selection import train_test_split
 
 
