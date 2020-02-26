@@ -132,6 +132,29 @@ class ProcessedDF:
 		from sklearn.preprocessing import LabelEncoder
 		df = df.apply(LabelEncoder().fit_transform)
 		return df
+	
+	@staticmethod
+	def decode_label_df(df, le):
+		df = df.apply(le.inverse_transform)
+		return df
+	
+	@staticmethod
+	def encode_single_column(df, col_name):
+		from sklearn.preprocessing import LabelEncoder
+		le = LabelEncoder()
+		df[col_name] = le.fit_transform(df[col_name])
+		return df
+	
+	@staticmethod
+	def decode_single_column(df, col_name, le):
+		from sklearn.preprocessing import LabelEncoder
+		le = LabelEncoder()
+		df[col_name] = le.inverse_transform(df[col_name])
+		return df
+	
+		
+		
+	
 
 	@staticmethod
 	def one_hot_encode(df):
