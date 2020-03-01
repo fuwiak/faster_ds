@@ -23,3 +23,6 @@ def print_metainformation(meta):
     print('{} categorical features with NAs'.format(len(meta['categorical_features_na'])))
     print('{} numerical features with NAs'.format(len(meta['numerical_features_na'])))
     print('{} Complete features'.format(len(meta['complete_features'])))
+
+# meta = dataframe_metainformation(data)
+# print_metainformation(meta)
