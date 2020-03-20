@@ -1,6 +1,7 @@
-import pandas as pd
+
 
 def dataframe_metainformation(df):
+    import pandas as pd
     meta = dict()
     descr = pd.DataFrame({'dtype': df.dtypes, 'NAs': df.isna().sum()})
     categorical_features = descr.loc[descr['dtype'] == 'object'].index.values.tolist()
