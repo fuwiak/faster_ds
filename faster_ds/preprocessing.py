@@ -150,17 +150,17 @@ class ProcessedDF:
 		from sklearn.preprocessing import LabelEncoder
 		le = LabelEncoder()
 		df[col_name] = le.inverse_transform(df[col_name])
-		return df
+		return df	
 	
-		
-		
-	
-
 	@staticmethod
 	def one_hot_encode(df):
 		# One hot encoding
 		df  = pd.get_dummies(df)
 		return df
+	
+	@staticmethod
+	def decode_one_hot(df):
+		pass
 
 	@staticmethod
 	def remove_collinear_var(df,threshold=0.9):
