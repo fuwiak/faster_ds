@@ -62,9 +62,18 @@ class model:
 
 	def random_search():
 		pass
+	
+	@staticmethod
+	def grid_search(clf, num_split=5):
+		from sklearn.model_selection import StratifiedKFold
+		clf_gs = GridSearchCV(clf, parameters, n_jobs=-1, cv = StratifiedKFold(shuffle=True,n_splits=num_split), 
+                      scoring='accuracy',verbose=2, refit=True)
 
-	def grid_search():
-		pass
+		clf_gs.fit(X_train,Y_train)
+		
+		return clf_gs
+
+		
 
 	def show_grid_time():
 		pass
