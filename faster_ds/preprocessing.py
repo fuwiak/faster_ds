@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-class ProcessedDF:
+class PR:
 
 	@staticmethod
 	def csv_as_df(dataset_name, sep="\t"):
