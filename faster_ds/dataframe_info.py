@@ -1,3 +1,5 @@
+import pandas as pd
+
 def dataframe_metainformation(df):
     meta = dict()
     descr = pd.DataFrame({'dtype': df.dtypes, 'NAs': df.isna().sum()})
