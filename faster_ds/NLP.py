@@ -1,23 +1,19 @@
 #create word cloud
 
+def create_word_cloud(text, stopwords, name_of_graph="cloud.png"):
+	from wordcloud import WordCloud, STOPWORDS
+	stopwords = set(STOPWORDS)
 
+	wordcloud = WordCloud(width = 800, height = 800, 
 
-from wordcloud import WordCloud, STOPWORDS
-stopwords = set(STOPWORDS)
+			stopwords = stopwords, 
+			min_font_size = 8,background_color='white'
+			     ).generate(text)
 
-
-
-text=""
-wordcloud = WordCloud(width = 800, height = 800, 
-     
-                stopwords = stopwords, 
-                min_font_size = 8,background_color='white'
-                     ).generate(text)
-
-import matplotlib.pylab as plt
-plt.figure(figsize = (16, 16)) 
-plt.imshow(wordcloud)
-plt.savefig('vacancy_cloud.png')
+	import matplotlib.pylab as plt
+	plt.figure(figsize = (16, 16)) 
+	plt.imshow(wordcloud)
+	plt.savefig(name_of_graph)
 
 
 
