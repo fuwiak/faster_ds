@@ -101,8 +101,10 @@ class model:
 		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
 		pass
 
-	def random_search():
-		pass
+	def random_search(clf, params):
+		from sklearn.model_selection import RandomizedSearchCV
+		clf = RandomizedSearchCV(clf, params, random_state=0)
+		return clf
 	
 	@staticmethod
 	def grid_search(clf, num_split=5):
