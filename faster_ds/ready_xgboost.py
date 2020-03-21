@@ -1,3 +1,4 @@
+import matplotlib.pylab as plt
 
 parameters = {'nthread':[6], 
               'objective':['binary:logistic'],
@@ -35,6 +36,22 @@ def pickle_acc(clf, X_test, Y_test):
 	result = clf.score(X_test, Y_test)
 	return(result)
 
+def xgb_reg(X, y, test_size=0.3, random_state=100):
+	import xgboost as xgb
+	clf = xgb.XGBRegressor(objective="reg:linear", random_state=random_state)
+	clf = clf.fit(train_X, train_y)
+	predictions = clf.predict(test_X)
+	feat_importances = pd.Series(clf.feature_importances_, index=X.columns)
+	feat_importances.nlargest(5).plot(kind='barh')
+	plt.xlabel("feat importances(data range(0,1))")
+	plt.show()
+	
+	return clf.feature_importances_
+	
+
+
+
+
 
 
 def create_data_matrix(X,y):
@@ -45,7 +62,6 @@ def create_data_matrix(X,y):
 	                     feature_names=features.columns.values)
 	# clf = xg.train(params, dmatrix)
 	return dmatrix
-
 
 
 
