@@ -25,6 +25,23 @@ class PCA:
 		return finalDf
 	
 	@staticmethod
+	def pca(df,target_name, n_components=2):
+		from sklearn.preprocessing import StandardScaler
+		x = df[df.columns.difference([target_name])]
+		
+		y = df[target_name]
+		# Standardizing the features
+		x = StandardScaler().fit_transform(x)
+		
+		from sklearn.decomposition import PCA
+		pca = PCA(n_components=n_components)
+		
+		return pca
+		
+		
+	
+	
+	@staticmethod
 	def pca_info(pca):
 		return pca.explained_variance_ratio_
 		
