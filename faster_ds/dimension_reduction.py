@@ -3,7 +3,7 @@ class PCA:
 	@staticmethod
 	def pca2comp(target_name,n_comp=2):
 		from sklearn.decomposition import PCA
-		pca = PCA(n_components=2))
+		pca = PCA(n_components=2)
 		principalComponents = pca.fit_transform(x)
 		principalDf = pd.DataFrame(data = principalComponents
 			     , columns = ['principal component 1', 'principal component 2'])
