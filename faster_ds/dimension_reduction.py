@@ -1,9 +1,20 @@
 
 class PCA:
 	@staticmethod
-	def pca2comp(target_name,n_comp=2):
+	def pca2comp(df, target_name,n_components):
+		
+		from sklearn.preprocessing import StandardScaler
+		
+		x = df[df.columns.difference([target_name])]
+		
+		y = df[target_name]
+		# Standardizing the features
+		x = StandardScaler().fit_transform(x)
+		
+		
+		
 		from sklearn.decomposition import PCA
-		pca = PCA(n_components=2)
+		pca = PCA(n_components=n_components)
 		principalComponents = pca.fit_transform(x)
 		principalDf = pd.DataFrame(data = principalComponents
 			     , columns = ['principal component 1', 'principal component 2'])
