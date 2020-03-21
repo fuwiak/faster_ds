@@ -1,7 +1,7 @@
 
 class PCA:
 	@staticmethod
-	def pca2comp(df, target_name,n_components):
+	def pca2comp(df, target_name,n_components=2):
 		
 		from sklearn.preprocessing import StandardScaler
 		
