@@ -4,7 +4,7 @@ import matplotlib.pylab as plt
 
 class PCA:
 	@staticmethod
-	def pca2comp(df, target_name,n_components=2):
+	def pca2df(df, target_name,n_components=2):
 		
 		from sklearn.preprocessing import StandardScaler
 		
@@ -14,8 +14,6 @@ class PCA:
 		# Standardizing the features
 		x = StandardScaler().fit_transform(x)
 		
-		
-		
 		from sklearn.decomposition import PCA
 		pca = PCA(n_components=n_components)
 		principalComponents = pca.fit_transform(x)
@@ -24,21 +22,20 @@ class PCA:
 
 
 		finalDf = pd.concat([principalDf, df[[target_name]]], axis = 1) # pca and target
-
+		return finalDf
+	
+	@staticmethod
+	def pca_info(pca):
+		return pca.explained_variance_ratio_
+		
+	
+	def visualize(pca):
+		
+		
 		fig = plt.figure(figsize = (8,8))
 		ax = fig.add_subplot(1,1,1) 
 		ax.set_xlabel('Principal Component 1', fontsize = 15)
 		ax.set_ylabel('Principal Component 2', fontsize = 15)
 		ax.set_title('2 component PCA', fontsize = 20)
-# 		targets = ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
-# 		colors = ['r', 'g', 'b']
-# 		for target, color in zip(targets,colors):
-# 		    indicesToKeep = finalDf['target'] == target
-# 		    ax.scatter(finalDf.loc[indicesToKeep, 'principal component 1']
-# 			       , finalDf.loc[indicesToKeep, 'principal component 2']
-# 			       , c = color
-# 			       , s = 50)
-# 		ax.legend(targets)
-# 		ax.grid()
 
-		return pca.explained_variance_ratio_
+		
