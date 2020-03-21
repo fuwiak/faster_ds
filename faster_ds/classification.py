@@ -97,9 +97,59 @@ class model:
 		print(classification_report(test_y, predictions))
 
 
-	def compare_algorithms(sorted_by_measure='accuracy'):
+	def compare_algorithms2df(sorted_by_measure='accuracy'):
 		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
-		pass
+		
+		MLA_columns = []
+		MLA_compare = pd.DataFrame(columns = MLA_columns)
+
+
+		row_index = 0
+		for alg in MLA:
+
+
+		    predicted = alg.fit(X_train, Y_train).predict(X1_test)
+		    fp, tp, th = roc_curve(Y1_test, predicted)
+		    MLA_name = alg.__class__.__name__
+		    MLA_compare.loc[row_index,'MLA Name'] = MLA_name
+		    MLA_compare.loc[row_index, 'MLA Train Accuracy'] = round(alg.score(X_train, Y_train), 4)
+		    MLA_compare.loc[row_index, 'MLA Test Accuracy'] = round(alg.score(X1_test, Y1_test), 4)
+		    MLA_compare.loc[row_index, 'MLA Precission'] = precision_score(Y1_test, predicted)
+		    MLA_compare.loc[row_index, 'MLA Recall'] = recall_score(Y1_test, predicted)
+		    MLA_compare.loc[row_index, 'MLA AUC'] = auc(fp, tp)
+		row_index+=1
+    
+		MLA_compare.sort_values(by = ['MLA Test Accuracy'], ascending = False, inplace = True)    
+		return MLA_compare
+	
+	def roc_curve_MLA():
+		
+		index = 1
+		for alg in MLA:
+
+
+		    predicted = alg.fit(X_train, Y_train).predict(X1_test)
+		    fp, tp, th = roc_curve(Y1_test, predicted)
+		    roc_auc_mla = auc(fp, tp)
+		    MLA_name = alg.__class__.__name__
+		    plt.plot(fp, tp, lw=2, alpha=0.3, label='ROC %s (AUC = %0.2f)'  % (MLA_name, roc_auc_mla))
+
+		    index+=1
+
+		plt.title('ROC Curve comparison')
+		plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+		plt.plot([0,1],[0,1],'r--')
+		plt.xlim([0,1])
+		plt.ylim([0,1])
+		plt.ylabel('True Positive Rate')
+		plt.xlabel('False Positive Rate')    
+		plt.show()
+
+	
+	
+	
+	
+	
 
 	def random_search(clf, params):
 		from sklearn.model_selection import RandomizedSearchCV
