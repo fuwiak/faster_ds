@@ -1,3 +1,20 @@
+#text pipeline
+
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfTransformer
+
+text_clf = Pipeline([('vect', CountVectorizer()),
+                    ('tfidf', TfidfTransformer()),
+                    ('clf', MultinomialNB())])
+text_clf = text_clf.fit(X_train, y_train)
+text_clf.predict(X_test)
+
+
+
+
+
+
+
 #create word cloud
 
 def create_word_cloud(text, stopwords, name_of_graph="cloud.png"):
