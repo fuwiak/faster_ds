@@ -1,5 +1,5 @@
 import classification as cl
-
+import seaborn as sns
 
 
 def select_categorical(df):
@@ -90,7 +90,10 @@ def show_hist(df, bins=5):
 	"""
 
 def show_heatmap(df):
-	pass
+	plt.figure(figsize=(12,10))
+	cor = df.corr()
+	sns.heatmap(cor, annot=True)
+	plt.show()
 
 
 
