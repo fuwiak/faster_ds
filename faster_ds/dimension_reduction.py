@@ -44,6 +44,18 @@ class PCA:
 	@staticmethod
 	def pca_info(pca):
 		return pca.explained_variance_ratio_
+	
+	@staticmethod
+	def plot_explained_variance(pca):
+		
+		plt.figure(1, figsize=(14, 13))
+		plt.clf()
+		plt.axes([.2, .2, .7, .7])
+		plt.plot(pca.explained_variance_ratio_, linewidth=2)
+		plt.axis('tight')
+		plt.xlabel('n_components')
+		plt.ylabel('explained_variance_ratio_')
+		plt.show()
 		
 	
 	def visualize(pca):
