@@ -117,7 +117,12 @@ class PR:
 			return df
 		else:
 			print("Wrong specified strategy")
-
+	
+	@staticmethod
+	def na_column_handling(df, col):
+		if name_of_strategy=="polynomial":
+			df[col] = df[col].interpolate(method='polynomial', order=2)
+		return col
 
 
 	@staticmethod
