@@ -17,6 +17,6 @@ def reduce_to_int16(X):
 
 def reduce_to_category(df):
     df = df.select_dtypes(include=['object']).copy()
-    df=df.astype('category')
+    df = df.astype('category')
     return df
     
