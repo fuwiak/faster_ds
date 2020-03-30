@@ -7,6 +7,7 @@ class PR:
 
 	@staticmethod
 	def csv_as_df(dataset_name, sep="\t"):
+		assert type(dataset_name)=='str', 'file name must be a string'
 		"""
 
 		type(dataset_name)==str
@@ -18,6 +19,7 @@ class PR:
 
 	@staticmethod
 	def column_names(dataframe):
+		assert type(dataframe)=='Pandas.dataframe', 'inputed the variable must be a dataframe'
 		"""
 
 		type(dataframe)==Pandas.dataframe
