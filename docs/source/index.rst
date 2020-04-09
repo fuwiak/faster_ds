@@ -1,19 +1,20 @@
-.. contents::
+.. faster_ds documentation master file, created by
+   sphinx-quickstart on Thu Apr  9 18:12:15 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-Release v\ |release| (:ref:`What's new? <release_history>`).
+Welcome to faster_ds's documentation!
+=====================================
 
-.. include:: ../../README.rst
-
-Table of Content
-------------------------------------------------------------------------------
-
-.. articles::
-
-.. include:: ../../AUTHORS.rst
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
 
-API Document
-------------------------------------------------------------------------------
 
-* :ref:`by Name <genindex>`
-* :ref:`by Structure <modindex>`
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
