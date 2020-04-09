@@ -59,7 +59,7 @@ To upgrade to latest version:
 
     $ pip install --upgrade faster_ds
     
-## Instruction for contributors
+`` Instruction for contributors ``
 
 click **fork** or type in console
 
