@@ -95,6 +95,8 @@ def show_heatmap(df):
 	sns.heatmap(cor, annot=True)
 	plt.show()
 
+def boxplot(df):
+	pass
 
 
 
