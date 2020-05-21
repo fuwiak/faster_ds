@@ -167,13 +167,13 @@ class model:
 		return clf_gs
 
 		
-
+	@property
 	def show_grid_time():
-		pass
+		raise NotImplementedError
 
-
+	@property
 	def show_random_search_time():
-		pass
+		raise NotImplementedError
 
 	@staticmethod
 	def dump_to_pickle(clf, filename):
