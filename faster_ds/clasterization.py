@@ -2,6 +2,22 @@ from sklearn import preprocessing  # to normalise existing X
 from sklearn import cluster
 
 
+
+
+class CusterInterface:
+    def method1(self, path: str, file_name: str) -> str:
+         """method description"""
+        pass
+
+    def method2(self, full_file_name: str) -> dict:
+        """method description"""
+        pass
+
+
+
+
+
+
 class cluster_model:
   @staticmethod
   def data_normalization(X):
