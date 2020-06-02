@@ -185,7 +185,16 @@ class model:
 		import pickle
 		loaded_model = pickle.load(open(filename, 'rb'))
 		return loaded_model
-
+	
+	@staticmethod
+	def metrics(self):
+		"""
+		- log loss
+		- accuracy
+		- confusion matrix
+		- ROC Curve
+		
+		"""
 
 
 
