@@ -1,6 +1,32 @@
 import pandas as pd
 import matplotlib.pylab as plt
 
+class DimensionReductionInterface:
+    def method1(self, path: str, file_name: str) -> str:
+         """method description"""
+        pass
+
+    def method2(self, full_file_name: str) -> dict:
+        """method description"""
+        pass
+
+
+
+
+#Computing Linear Discriminant Analysis projection
+#     lda = LinearDiscriminantAnalysis(n_components=7)
+#     X_trainl = lda.fit(X_train, y_train).transform(X_train)
+#     X_testl = lda.transform(X_test)    
+#     classifierl = KNeighborsClassifier(n_neighbors =5, metric = 'minkowski', p = 2)
+#     classifierl.fit(X_trainl, y_train)
+#     l_pred = classifierl.predict(X_testl)
+#     #Accuracy of LDA
+#     acc2 = accuracy_score(y_test, l_pred)
+
+
+
+
+
 
 class PCA:
 	@staticmethod
