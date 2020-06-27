@@ -6,7 +6,7 @@ class BigFiles:
     
     @staticmethod
     def get_info(df):
-        return df.info
+        raise NotImplementedError
 
     @staticmethod
     def num_megabytes(df):
