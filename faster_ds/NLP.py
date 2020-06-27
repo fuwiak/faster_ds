@@ -18,6 +18,14 @@ class Pipelines:
 	
 
 class WordCloud:
+	
+	def create_stopwords(file_name, sep=" "):
+		data = open(file_name, "r")
+		data = data.read()
+		data = data.split(sep)
+		return " ".join(data)
+		
+	
 	def create_word_cloud(text, stopwords, name_of_graph="cloud.png"):
 		from wordcloud import WordCloud, STOPWORDS
 		stopwords = set(STOPWORDS)
