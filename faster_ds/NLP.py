@@ -1,40 +1,65 @@
-#text pipeline
-
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfTransformer
-
-text_clf = Pipeline([('vect', CountVectorizer()),
-                    ('tfidf', TfidfTransformer()),
-                    ('clf', MultinomialNB())])
-text_clf = text_clf.fit(X_train, y_train)
-text_clf.predict(X_test)
+from sklearn.feature_extraction.text import CountVectorizer
 
 
+class Pipelines:
+	@abstractmethod
+	def create_pipeline(**parameters):
+		"""
+		Sample usage
+		text_clf = Pipeline([('vect', CountVectorizer()),
+			    ('tfidf', TfidfTransformer()),
+			    ('clf', MultinomialNB())])
+		text_clf = text_clf.fit(X_train, y_train)
+		text_clf.predict(X_test)
+		"""
+		raise NotImplementedError
+	
+
+class WordCloud:
+	def create_word_cloud(text, stopwords, name_of_graph="cloud.png"):
+		from wordcloud import WordCloud, STOPWORDS
+		stopwords = set(STOPWORDS)
+
+		wordcloud = WordCloud(width = 800, height = 800, 
+				stopwords = stopwords, 
+				min_font_size = 8,background_color='white').generate(text)
+		return wordcloud
+	
+	def plot_word_cloud(wordcloud):
+		import matplotlib.pylab as plt
+		plt.figure(figsize = (16, 16)) 
+		plt.imshow(wordcloud)
+		plt.savefig(name_of_graph)
+		plt.show()
+	
+	
+	
+	
+	
 
 
 
 
 
-#create word cloud
-
-def create_word_cloud(text, stopwords, name_of_graph="cloud.png"):
-	from wordcloud import WordCloud, STOPWORDS
-	stopwords = set(STOPWORDS)
-
-	wordcloud = WordCloud(width = 800, height = 800, 
-
-			stopwords = stopwords, 
-			min_font_size = 8,background_color='white'
-			     ).generate(text)
-
-	import matplotlib.pylab as plt
-	plt.figure(figsize = (16, 16)) 
-	plt.imshow(wordcloud)
-	plt.savefig(name_of_graph)
 
 
 
-class clean_text:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CleanText:
     import string
     import re
      
