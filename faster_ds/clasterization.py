@@ -89,9 +89,8 @@ class ClusterModel:
 		plt.show()
 
 	@staticmethod
-	def plot_clusters(X_norm, labels):
-		plt.scatter(X_norm[:,0],X_norm[:,1], c=labels, cmap='rainbow')
-		plt.show()
+	def plot_clusters(X_norm, cluster_number):
+		raise NotImplementedError
 
 
 
