@@ -1,7 +1,36 @@
+import pandas as pd
+
 
 
 def dataframe_metainformation(df):
-    import pandas as pd
+     """
+   
+    Returns Pandas data frame with metainformation 
+    
+    Parameters
+    -----------
+    df
+        Pandas data frame with item data
+   
+   
+    Returns
+    -----------
+    DataFrame, Series
+        Pandas data frame with item data
+    
+    Examples
+    -----------
+    data = pd.read_csv("titanic.csv")
+    
+    meta = dataframe_metainformation(data)
+    print_metainformation(meta)
+    
+   
+   
+   """ 
+ 
+    
+   
     meta = dict()
     descr = pd.DataFrame({'dtype': df.dtypes, 'NAs': df.isna().sum()})
     categorical_features = descr.loc[descr['dtype'] == 'object'].index.values.tolist()
@@ -27,5 +56,3 @@ def print_metainformation(meta):
     print('{} numerical features with NAs'.format(len(meta['numerical_features_na'])))
     print('{} Complete features'.format(len(meta['complete_features'])))
 
-# meta = dataframe_metainformation(data)
-# print_metainformation(meta)
