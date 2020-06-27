@@ -117,15 +117,11 @@ class FakeData:
 		return df
 
 	@staticmethod
-	def clasterization_data(n_samples=1000, n_features=3):
+	def clasterization_data(n_samples=1000, n_features=3, centers== [(-5, -5), (5, 5), (10, 10)], cluster_std = [0.8, 1, 2]):
+		
 		from sklearn.datasets.samples_generator import make_blobs
-
-		centers = [(-5, -5), (5, 5), (10, 10)]
-		cluster_std = [0.8, 1, 2]
-
 		X, y = make_blobs(n_samples=n_samples, cluster_std=cluster_std, centers=centers, n_features=n_features, random_state=1)
-
-
+		
 		return X, y
 		
 
