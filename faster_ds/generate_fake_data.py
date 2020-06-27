@@ -4,47 +4,37 @@ import datetime
 import numpy as np
 import matplotlib.pylab as plt
 
-'''
 
+class FakeData:
+	'''
 	class which generates fake and sample data
-
-'''
-
-class fake_data:
+	
+	'''
 
 	@staticmethod
 	def one_sentence():
 		"""
-	    
-	    Returns text(string)
-	    
-	    Parameters
-	    -----------
-	    
-	    """
-		
+		Returns text(string)
+		"""
 		temp = Faker()
 		return temp.text()
+	
+	
 	@staticmethod
 	def many_sentences(how_many):
 		"""
-	    
-	    Returns Pandas Dataframe with text
-	    
-	    Parameters
-	    -----------
-	    how_many
-	    	number of rows of text in dataframe
-
-	    
-	    """
-		
+		Returns Pandas Dataframe with text
+		Parameters
+		-----------
+		how_many
+	    		number of rows of text in dataframe
+		"""
 		temp = Faker()
-		data = []
-		for i in range(how_many):
-			data.append(temp.text())
+		data = [temp.text() for i in range(how_many)]
+		df = pd.DataFrame(data, columns=["text"])
 
-		return pd.DataFrame(data, columns=["text"])
+
+		return data, df
 
 	@staticmethod
 	def classfication_data(how_many):
@@ -58,6 +48,7 @@ class fake_data:
 
 
 		"""
+		
 		data=[]
 		for i in range(how_many):
 			temp= Faker('en_US')
