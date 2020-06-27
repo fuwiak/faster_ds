@@ -13,7 +13,7 @@ class BigFiles:
         return sum(df.memory_usage()/1024**2)
     
     @staticmethod
-    def reduce_to_int16(X):
+    def reduce_to_16bit(X):
         for col in X.columns:
             if X[col].dtype==np.int64:
                 X[col] = X[col].astype(np.int16)
