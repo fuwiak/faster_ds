@@ -92,6 +92,13 @@ class ClusterModel:
 	@staticmethod
 	def plot_clusters(X_norm, cluster_number):
 		raise NotImplementedError
+		
+		
+	# plt.scatter(X[y == 0, 0], X[y == 0, 1], color="red", s=10, label="Cluster1")
+		# plt.scatter(X[y == 1, 0], X[y == 1, 1], color="blue", s=10, label="Cluster2")
+		# plt.scatter(X[y == 2, 0], X[y == 2, 1], color="pink", s=10, label="Cluster3")
+		# plt.show()
+
 
 
 
