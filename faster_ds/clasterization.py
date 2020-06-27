@@ -66,6 +66,7 @@ class ClusterModel:
 	@staticmethod
 	def km_centers(X_norm, n_clusters=5):
 		"""
+		returns k-means centroids
 		
 
 		"""
