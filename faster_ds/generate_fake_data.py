@@ -37,7 +37,7 @@ class FakeData:
 		return data, df
 
 	@staticmethod
-	def classfication_data(how_many):
+	def classification_data(how_many):
 		"""
 		Returns Pandas Dataframe with data to classification
 
