@@ -83,7 +83,7 @@ class PCA:
 		plt.ylabel('explained_variance_ratio_')
 		plt.show()
 		
-	
+	@staticmethod
 	def visualize(pca):
 		
 		
@@ -92,7 +92,14 @@ class PCA:
 		ax.set_xlabel('Principal Component 1', fontsize = 15)
 		ax.set_ylabel('Principal Component 2', fontsize = 15)
 		ax.set_title('2 component PCA', fontsize = 20)
-class ICA:
-	pass
+		
+	
+	
+	class LDA:
+		raise NotImplementedError
+
+		
+	class ICA:
+		raise NotImplementedError
 
 		
