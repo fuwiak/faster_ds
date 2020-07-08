@@ -61,7 +61,16 @@ class FS:
 		return rfe_feature
 	
 	
-	
+	@staticmethod
+	def Lasso_selector(X_norm, y):
+		from sklearn.feature_selection import SelectFromModel
+		from sklearn.linear_model import LogisticRegression
+		embeded_lr_selector = SelectFromModel(LogisticRegression(penalty="l1"), max_features=num_feats)
+		embeded_lr_selector.fit(X_norm, y)
+		embeded_lr_support = embeded_lr_selector.get_support()
+		embeded_lr_feature = X.loc[:,embeded_lr_support].columns.tolist()
+		print(str(len(embeded_lr_feature)), 'selected features')
+		return embeded_lr_feature
 	
 	
 
