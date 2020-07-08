@@ -47,6 +47,23 @@ class FS:
 		print(str(len(chi_feature)), 'selected features')
 		print("list of selected columns ", chi_feature)
 		return chi_feature
+	
+	
+	@staticmethod
+	def RFE_selector(X_norm, y, estimator=LogisticRegression()):
+		from sklearn.feature_selection import RFE
+		from sklearn.linear_model import LogisticRegression
+		rfe_selector = RFE(estimator=LogisticRegression(), n_features_to_select=num_feats, step=10, verbose=5)
+		rfe_selector.fit(X_norm, y)
+		rfe_support = rfe_selector.get_support()
+		rfe_feature = X.loc[:,rfe_support].columns.tolist()
+		print(str(len(rfe_feature)), 'selected features')
+		return rfe_feature
+	
+	
+	
+	
+	
 
 
 	#wrapper methods
