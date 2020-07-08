@@ -1,3 +1,4 @@
+# TIPS
 
 Your function should:
 - Well documented as in sample below:
@@ -51,3 +52,9 @@ def abc(self, arg1, arg2,...):
    
     return foo
 ```
+
+# Feature request 
+
+https://github.com/fuwiak/faster_ds/blob/master/.github/ISSUE_TEMPLATE/feature_request.md
+
+
