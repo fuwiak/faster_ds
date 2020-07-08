@@ -1,3 +1,10 @@
+
+Your function should:
+- Well documented as in sample below:
+
+```{python}
+
+
 def abc(self, arg1, arg2,...):
     pass
 
@@ -43,3 +50,4 @@ def abc(self, arg1, arg2,...):
 
    
     return foo
+```
