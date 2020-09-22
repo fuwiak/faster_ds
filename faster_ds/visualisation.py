@@ -3,27 +3,26 @@ import seaborn as sns
 
 
 def select_categorical(df):
-	"""
+    """
     Returns dataframe with object type
-    
+
     Parameters
     -----------
     df
-        Pandas data frame with item data
-           
-    
+	Pandas data frame with item data
+
+
     Returns
     -----------
     col
-    	Pandas dataframe with object data
+	Pandas dataframe with object data
     """
-
-
-	col=df.select_dtypes(include=['object'])
-	return col
+    col=df.select_dtypes(include=['object'])
+    return col
 
 
 def select_numerical(df):
+	
 	"""
     Returns dataframe with object type
     
