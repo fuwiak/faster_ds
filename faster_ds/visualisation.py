@@ -95,25 +95,17 @@ def show_heatmap(df):
 	sns.heatmap(cor, annot=True)
 	plt.show()
 
-def boxplot(df):
-	pass
+def boxplot(df, colname):
+	if isinstance(df, pd.DataFrame):
+		boxplot = df[colname].boxplot()
+	else:
+		ax = sns.boxplot(x=colname, data=df)
+		
 
 
 
 
 
 
-
-
-if __name__ == "__main__":
-
-	md = cl.model("sample_data/titanic.csv")
-	df = md.csv_as_df()
-	columns = md.column_names()
-	columns = columns[0].split("\t")
-	y_name = "Survived"
-	X_names = [x for x in columns if x !=y_name]
-	X = md.set_X(X_names) #type dataframe
-	y = md.set_Y(y_name)
 
 
