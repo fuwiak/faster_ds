@@ -1,13 +1,6 @@
 import pandas as pd
 
 
-'''
-
-methods for binary classification
-
-'''
-
-
 class model:
 
 	@staticmethod
@@ -89,14 +82,14 @@ class model:
 			plt.show()
 
 	@staticmethod
-	def confusion_matrix(clf, train_X, train_y, test_y):
+	def confusion_matrix(clf, train_X, train_y, test_y,test_X):
 		clf = clf.fit(train_X, train_y)
 		predictions = clf.predict(test_X)
 
 		from sklearn.metrics import classification_report
 		print(classification_report(test_y, predictions))
 
-
+	@staticmethod
 	def compare_algorithms2df(sorted_by_measure='accuracy'):
 		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
 		
@@ -122,8 +115,8 @@ class model:
 		MLA_compare.sort_values(by = ['MLA Test Accuracy'], ascending = False, inplace = True)    
 		return MLA_compare
 	
-	def roc_curve_MLA():
-		
+	@staticmethod
+	def roc_curve_MLA(MLA):
 		index = 1
 		for alg in MLA:
 
@@ -149,8 +142,8 @@ class model:
 	
 	
 	
-	
-
+			
+	@staticmethod
 	def random_search(clf, params):
 		from sklearn.model_selection import RandomizedSearchCV
 		clf = RandomizedSearchCV(clf, params, random_state=0)
