@@ -19,10 +19,12 @@ class PR:
 
 	@staticmethod
 	def column_names(dataframe):
-		assert type(dataframe)=='Pandas.dataframe', 'inputed the variable must be a dataframe'
+		if isinstance(dataframe, pd.DataFrame):
+			return list(dataframe.columns)
+
 		"""
 
-		type(dataframe)==Pandas.dataframe
+		type(dataframe)==pandas.core.frame.DataFrame
 
 		return
 
@@ -31,7 +33,7 @@ class PR:
 		"""
 
 
-		return list(dataframe.columns)
+		
 
 
 
@@ -135,18 +137,18 @@ class PR:
 	
 	
 	
-	@staticmethod
-	def encode_object(X_train, X_test):
-		from sklearn import preprocessing
+	# @staticmethod
+	# def encode_object(X_train, X_test):
+	# 	from sklearn import preprocessing
 
-		# Label Encoding
-		for f in X_train.columns:
-		    if X_train[f].dtype=='object' or X_test[f].dtype=='object': 
-			lbl = preprocessing.LabelEncoder()
-			lbl.fit(list(X_train[f].values) + list(X_test[f].values))
-			X_train[f] = lbl.transform(list(X_train[f].values))
-			X_test[f] = lbl.transform(list(X_test[f].values))
-		return X_train, X_test
+	# 	# Label Encoding
+	# 	for f in X_train.columns:
+	# 	    if X_train[f].dtype=='object' or X_test[f].dtype=='object': 
+	# 		lbl = preprocessing.LabelEncoder()
+	# 		lbl.fit(list(X_train[f].values) + list(X_test[f].values))
+	# 		X_train[f] = lbl.transform(list(X_train[f].values))
+	# 		X_test[f] = lbl.transform(list(X_test[f].values))
+	# 	return X_train, X_test
 	
 	
 	
