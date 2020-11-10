@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
 
 
 class Model:
@@ -156,6 +156,9 @@ class Model:
 		- ROC Curve
 		
 		"""
+		print("Accuracy", accuracy_score(test_y, pred))
+		print("recall", recall_score(test_y, pred))
+		print("precision", precision_score(test_y, pred))
 
 
 
