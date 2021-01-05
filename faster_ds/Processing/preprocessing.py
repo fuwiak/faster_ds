@@ -98,7 +98,7 @@ class PR:
 	    return normalized
 
 	@staticmethod
-	def na_handling(df, name_of_strategy,spefic_value="0"):
+	def na_handling(df, name_of_strategy,specific_value="0"):
 		# sklearn.impute.SimpleImputer
 
 
@@ -113,7 +113,7 @@ class PR:
 		elif name_of_strategy=="0":
 			df.fillna(0, inplace=True)
 			return df
-		elif name_of_strategy=="spefic_value":
+		elif name_of_strategy=="specific_value":
 			df.fillna(spefic_value, inplace=True)
 			return df
 		
@@ -128,7 +128,7 @@ class PR:
 			print("Wrong specified strategy")
 	
 	@staticmethod
-	def na_column_handling(df, col,spefic_value="0"):
+	def na_column_handling(df, col,specific_value="0"):
 		if name_of_strategy=="polynomial":
 			df[col] = df[col].interpolate(method='polynomial', order=2)
 			return df
@@ -143,7 +143,7 @@ class PR:
 			df.fillna(0, inplace=True)
 			return df
 		
-		elif name_of_strategy=="spefic_value":
+		elif name_of_strategy=="specific_value":
 			df.fillna(spefic_value, inplace=True)
 			return df
 		
