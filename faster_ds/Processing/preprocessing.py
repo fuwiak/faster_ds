@@ -19,9 +19,6 @@ class PR:
 
 	@staticmethod
 	def column_names(dataframe):
-		if isinstance(dataframe, pd.DataFrame):
-			return list(dataframe.columns)
-
 		"""
 
 		type(dataframe)==pandas.core.frame.DataFrame
@@ -31,6 +28,10 @@ class PR:
 		list
 
 		"""
+		if isinstance(dataframe, pd.DataFrame):
+			return list(dataframe.columns)
+
+		
 
 
 		
@@ -117,7 +118,7 @@ class PR:
 			df.fillna(df.mean(), inplace=True)
 			return df
 		elif name_of_strategy=="mode":
-			df.fillna(df.mode(), inplace=True)
+			df.fillna(df.mode(), inplace=True, dropna=True)
 			return df
 		else:
 			print("Wrong specified strategy")
