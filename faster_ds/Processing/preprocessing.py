@@ -134,25 +134,25 @@ class PR:
 			return df
 		
 		elif name_of_strategy=="previous_row":
-			df.fillna(method="backfill", inplace=True)
+			df[col]=df[col].fillna(method="backfill", inplace=True)
 			return df
 		elif name_of_strategy=="next_row":
-			df.fillna(method="ffill", inplace=True)
+			df[col] = df[col].fillna(method="ffill", inplace=True)
 			return df
 		elif name_of_strategy=="0":
-			df.fillna(0, inplace=True)
+			df[col] = df[col].fillna(0, inplace=True)
 			return df
 		
 		elif name_of_strategy=="specific_value":
-			df.fillna(spefic_value, inplace=True)
+			df[col] = df[col].fillna(specific_value, inplace=True)
 			return df
 		
 
 		elif name_of_strategy=="mean":
-			df.fillna(df.mean(), inplace=True)
+			df[col] =df[col].fillna(df.mean(), inplace=True)
 			return df
 		elif name_of_strategy=="mode":
-			df.fillna(df.mode(dropna=True), inplace=True)
+			df[col] =df[col].fillna(df.mode(dropna=True), inplace=True)
 			return df
 		else:
 			print("Wrong specified strategy")
