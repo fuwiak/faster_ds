@@ -126,7 +126,26 @@ class PR:
 	def na_column_handling(df, col):
 		if name_of_strategy=="polynomial":
 			df[col] = df[col].interpolate(method='polynomial', order=2)
-		return col
+			return df
+		
+		elif name_of_strategy=="previous_row":
+			df.fillna(method="backfill", inplace=True)
+			return df
+		elif name_of_strategy=="next_row":
+			df.fillna(method="ffill", inplace=True)
+			return df
+		elif name_of_strategy=="0":
+			df.fillna(0, inplace=True)
+			return df
+
+		elif name_of_strategy=="mean":
+			df.fillna(df.mean(), inplace=True)
+			return df
+		elif name_of_strategy=="mode":
+			df.fillna(df.mode(), inplace=True)
+			return df
+		else:
+			print("Wrong specified strategy")
 
 
 	@staticmethod
