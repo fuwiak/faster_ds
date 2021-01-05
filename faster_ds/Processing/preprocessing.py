@@ -154,6 +154,11 @@ class PR:
 		#split set to set with all na's and without
 		return df[df.isnull().any(axis=1)]
 	
+	@staticmethod
+	def show_columns_with_nan(df):
+		list_ = df.columns[df.isna().any()].tolist()
+		return list_
+	
 	
 	
 	# @staticmethod
