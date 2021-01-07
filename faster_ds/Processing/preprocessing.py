@@ -96,6 +96,12 @@ class PR:
 	def normalization(df):
 	    normalized = df.apply(lambda x: x/max(x))
 	    return normalized
+	
+	@staticmethod
+	def standarization(df):
+	    standarized = df.apply(lambda x: (x - x.mean()) /max(x))
+	    return standarized
+	
 
 	@staticmethod
 	def na_handling(df, name_of_strategy,specific_value="0"):
