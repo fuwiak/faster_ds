@@ -17,5 +17,9 @@ from sklearn.metrics import mean_squared_error
 #metrics
 
 def show_metrics(y_true, y_pred):
-    pass
+    r2 = r2_score(y_true, y_pred)
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_absolute_error(y_true, y_pred)
+    return r2, mae, mse
+    
     
