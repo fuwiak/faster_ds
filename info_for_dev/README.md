@@ -1,7 +1,18 @@
 # TIPS
 
-Your function should:
-- Well documented as in sample below:
+
+**Commit convetion**
+
+class/method_name: brief desciption what you did
+
+method1: I was made for loving you babe
+
+
+
+
+
+
+**Follow this classes/methods style**
 
 ```{python}
 
