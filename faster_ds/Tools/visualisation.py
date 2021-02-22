@@ -99,6 +99,10 @@ def boxplot(df, colname):
 		boxplot = df[colname].boxplot()
 	else:
 		ax = sns.boxplot(x=colname, data=df)
+
+		
+def visualize_nan(df):
+	sns.heatmap(df.isnull())
 		
 
 
