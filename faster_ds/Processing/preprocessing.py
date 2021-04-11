@@ -230,6 +230,32 @@ class PR:
 	@staticmethod
 	def decode_one_hot(df):
 		pass
+	
+	def encode_to_num_df(col: pd.Series):
+		"""
+		Sample usage:
+		mapping_encoding = []
+		for name in X.columns:
+			df_enc[name], d = encode_to_num_df(X[name])
+			mapping_encoding.append(d)
+		
+		
+		
+		"""
+		from sklearn.preprocessing import LabelEncoder
+		le = LabelEncoder()
+		col_enc = le.fit_transform(col)
+		d = dict(zip(le.transform(le.classes_),le.classes_))
+		return col_enc, d
+
+
+
+	
+	
+	
+	
+	
+	
 
 	@staticmethod
 	def remove_collinear_var(df,threshold=0.9):
