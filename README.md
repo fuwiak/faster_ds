@@ -9,10 +9,9 @@ Created to make faster boring stuff in preprocessing data and data analysis.
 
 # Notes
 # Getting Started
- - List of features: docs/rope.rst
- - Overview features: docs/overview.rst
- - Using as a library: docs/library.rst
- - Contributing: docs/contributing.rst
+ - List of features: docs/*
+ - Overview features: docs/overview*
+ - Contributing: docs/contributing*
 
 
 # Bug Reports
