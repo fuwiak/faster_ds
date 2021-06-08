@@ -157,8 +157,8 @@ class Model:
 		
 		"""
 		print("Accuracy", accuracy_score(test_y, pred))
-		print("recall", recall_score(test_y, pred))
-		print("precision", precision_score(test_y, pred))
+		print("recall", recall_score(test_y, pred, average='micro'))
+		print("precision", precision_score(test_y, pred, average='micro'))
 
 
 
