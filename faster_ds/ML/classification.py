@@ -90,7 +90,7 @@ class Model:
 
 	@staticmethod
 	def confusion_matrix(clf, train_X, train_y, test_y,test_X):
-		clf = clf.fit(train_X, train_y)
+
 		predictions = clf.predict(test_X)
 
 		from sklearn.metrics import classification_report
