@@ -128,7 +128,9 @@ class PR:
 			df.fillna(df.mean(), inplace=True)
 			return df
 		elif name_of_strategy=="mode":
-			df.fillna(df.mode(dropna=True), inplace=True)
+			fill_mode = lambda col: col.fillna(col.mode().iloc[0])
+			df = df.apply(fill_mode, axis=0)
+# 			df.fillna(df.mode(dropna=True), inplace=True)
 			return df
 		else:
 			print("Wrong specified strategy")
