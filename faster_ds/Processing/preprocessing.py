@@ -164,6 +164,17 @@ class PR:
 			return df
 		else:
 			print("Wrong specified strategy")
+			
+	def na_column_handling_dict(df, col,name_of_strategy,specific_value="0"):
+	  col_dict = {}
+	  col_dict["polynomial"] = df[col].interpolate(method='polynomial', order=2)
+	  col_dict["previous_row"] = df[col]=df[col].fillna(method="backfill", inplace=True)
+	  col_dict["next_row"] = df[col].fillna(method="ffill", inplace=True)
+	  col_dict["O"] = df[col].fillna(0, inplace=True)
+	  col_dict["specific_value"] = df[col].fillna(specific_value, inplace=True)
+	  col_dict["mean"] = df[col].fillna(df.mean(), inplace=True)
+	  col_dict["mode"] = df[col].apply(lambda col: col.fillna(col.mode().iloc[0]), axis=0)
+	  return col_dict 
 
 
 	@staticmethod
