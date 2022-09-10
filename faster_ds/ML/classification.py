@@ -1,47 +1,79 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
+from sklearn.metrics import log_loss, f1_score, confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
-
+from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
 class Model:
-
-	def __init__(self, clf, model_name):
-		self.clf = clf
-		self.model_name = model_name
+	def __init__(self, model, X_train, y_train, X_test, y_test):
+		self.model = model
+		self.X_train = X_train
+		self.y_train = y_train
+		self.X_test = X_test
+		self.y_test = y_test
 
 
 	@staticmethod
 	def clf_details(clf):
+		"""
+		:param clf: classifier
+		:return: classifier details
+
+		"""
 		return clf
 
 	
 	@staticmethod
-	def plot_roc_curve(clf, train_X, train_y, test_X):
-		predictions = clf.fit(train_X, train_y).predict(test_X)
-		fp, tp, th = roc_curve(test_y, predictions)
-		roc_auc_mla = auc(fp, tp)
-		plt.plot(fp, tp, lw=2, alpha=0.3)
-		plt.title('ROC Curve comparison')
-		plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-		plt.plot([0,1],[0,1],'r--')
-		plt.xlim([0,1])
-		plt.ylim([0,1])
-		plt.ylabel('True Positive Rate')
-		plt.xlabel('False Positive Rate')    
+	def plot_roc_curve(model, X_test, y_test):
+		"""
+		:param model: classifier
+		:param X_test: test data
+		:param y_test: test labels
+		:return: plot of roc curve
+
+		"""
+		y_pred_proba = model.predict_proba(X_test)[::, 1]
+		fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
+		auc = auc(fpr, tpr)
+		plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
+		plt.legend(loc=4)
 		plt.show()
 
 	@staticmethod
-	def plot_log_loss():
+	def plot_log_loss(model, X_test, y_test):
+		"""
+		:param model: classifier
+		:param X_test: test data
+		:param y_test: test labels
+		:return: plot of log loss
 
-		from sklearn.metrics import log_loss
-		import  matplotlib.pylab  as plt
-		from numpy import array
-		
-		# plot input to loss
-		plt.plot(yhat, losses_0, label='true=0')
-		plt.plot(yhat, losses_1, label='true=1')
-		plt.legend()
+		"""
+		y_pred_proba = model.predict_proba(X_test)[::, 1]
+		log_loss(y_test, y_pred_proba)
+		plt.plot(log_loss(y_test, y_pred_proba))
 		plt.show()
+
+	@staticmethod
+	def plot_acc_epoch(model, X_test, y_test):
+		"""
+		:param model: classifier
+		:param X_test: test data
+		:param y_test: test labels
+		:return: plot of accuracy vs epoch
+
+		"""
+		y_pred_proba = model.predict_proba(X_test)[::, 1]
+		accuracy_score(y_test, y_pred_proba)
+		plt.plot(accuracy_score(y_test, y_pred_proba))
+		plt.show()
+
+
+
+
+
 
 	# @staticmethod
 	# def plot_acc_epoch():
@@ -89,16 +121,26 @@ class Model:
 	# 		plt.show()
 
 	@staticmethod
-	def confusion_matrix(clf, train_X, train_y, test_y,test_X):
+	def confusion_matrix(model, X_test, y_test):
+		"""
+		:param model: classifier
+		:param X_test: test data
+		:param y_test: test labels
+		:return: confusion matrix
 
-		predictions = clf.predict(test_X)
-
-		from sklearn.metrics import classification_report
-		print(classification_report(test_y, predictions))
+		"""
+		y_pred = model.predict(X_test)
+		cm = confusion_matrix(y_test, y_pred)
+		return cm
 
 	@staticmethod
 	def compare_algorithms2df(sorted_by_measure='accuracy'):
-		#show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
+		"""
+		show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
+		:param sorted_by_measure: measure to sort by
+		:return: dataframe of all algorithms sorted by measure
+
+		"""
 		
 		MLA_columns = []
 		MLA_compare = pd.DataFrame(columns = MLA_columns)
@@ -108,8 +150,8 @@ class Model:
 		for alg in MLA:
 
 
-		    predicted = alg.fit(X_train, Y_train).predict(X1_test)
-		    fp, tp, th = roc_curve(Y1_test, predicted)
+		    predicted = alg.fit(X_train, y_train).predict(X_test)
+		    fp, tp, th = roc_curve(y_test, predicted)
 		    MLA_name = alg.__class__.__name__
 		    MLA_compare.loc[row_index,'MLA Name'] = MLA_name
 		    MLA_compare.loc[row_index, 'MLA Train Accuracy'] = round(alg.score(X_train, Y_train), 4)
@@ -124,6 +166,11 @@ class Model:
 	
 	@staticmethod
 	def roc_curve_MLA(MLA):
+		"""
+		:param MLA: list of classifiers
+		:return: plot of roc curve for each classifier
+
+		"""
 		index = 1
 		for alg in MLA:
 
@@ -147,18 +194,17 @@ class Model:
 
 	
 	
-	@staticmethod
 	def metrics(self):
 		"""
-		- log loss
-		- accuracy
-		- confusion matrix
-		- ROC Curve
-		
+		:return: accuracy, recall, ppv, f1-measure, mcc
+
 		"""
-		print("Accuracy", accuracy_score(test_y, pred))
-		print("recall", recall_score(test_y, pred, average='micro'))
-		print("precision", precision_score(test_y, pred, average='micro'))
+		accuracy = accuracy_score(self.y_test, self.y_pred)
+		recall = recall_score(self.y_test, self.y_pred)
+		precision = precision_score(self.y_test, self.y_pred)
+		f1 = f1_score(self.y_test, self.y_pred)
+		mcc = matthews_corrcoef(self.y_test, self.y_pred)
+		return accuracy, recall, precision, f1, mcc
 
 
 

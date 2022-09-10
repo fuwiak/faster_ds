@@ -1,2 +1,15 @@
 pathlib_mate    # autopep8 your code
 twine>=1.5.0    # make distribution archive
+wheel>=0.29.0   # make distribution archive
+setuptools>=18.5    # make distribution archive
+pytest>=2.8.0   # run test
+pytest-cov>=2.2.0   # run test
+pytest-pep8>=1.0.6   # run test
+pytest-flakes>=1.0.1 # run test
+pytest-cache>=1.0    # run test
+pytest-xdist>=1.14   # run test
+pytest-timeout>=1.0.0    # run test
+pytest-mock>=1.1  # run test
+pytest-capturelog>=0.7    # run test
+pytest-instafail>=0.3.0   # run test
+pytest-faulthandler>=1.3.0    # run test
