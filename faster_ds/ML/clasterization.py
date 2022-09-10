@@ -30,7 +30,7 @@ class ClusterModel:
 		self.X_test = X_test
 		self.y_train = y_train
 		self.y_test = y_test
-	
+
 	@staticmethod
 	def data_normalization(X: pd.DataFrame) -> pd.DataFrame:
 		"""
