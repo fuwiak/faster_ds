@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import sklearn
+import seaborn as sns
 from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
 from sklearn.metrics import log_loss, f1_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
@@ -7,40 +9,60 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
+
+
+
+
+
 class Model:
-	def __init__(self, model, X_train, y_train, X_test, y_test):
+	def __init__(self, model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series, test_size: float = 0.2):
+		"""
+		:param model: sklearn model
+		:param X: features
+		:param y: target
+		:param test_size: test size
+
+		"""
+		self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=test_size)
 		self.model = model
-		self.X_train = X_train
-		self.y_train = y_train
-		self.X_test = X_test
-		self.y_test = y_test
+		self.model.fit(self.X_train, self.y_train)
+		self.y_pred = self.model.predict(self.X_test)
 
 
 	@staticmethod
-	def clf_details(clf):
+	def clf_details(model: sklearn.base.BaseEstimator)->str:
 		"""
 		:param clf: classifier
 		:return: classifier details
 
 		"""
-		return clf
+		return str(dir(model))
 
 	
 	@staticmethod
-	def plot_roc_curve(model, X_test, y_test):
+	def plot_roc_curve(model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series)-> None:
 		"""
-		:param model: classifier
-		:param X_test: test data
-		:param y_test: test labels
-		:return: plot of roc curve
+		:param model: sklearn model
+		:param X: features
+		:param y: target
+		:return: plot roc curve
 
 		"""
-		y_pred_proba = model.predict_proba(X_test)[::, 1]
-		fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
-		auc = auc(fpr, tpr)
-		plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
-		plt.legend(loc=4)
+		y_pred = model.predict_proba(X)[:, 1]
+		fpr, tpr, _ = roc_curve(y, y_pred)
+		roc_auc = auc(fpr, tpr)
+		plt.figure()
+		plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+		plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+		plt.xlim([0.0, 1.0])
+		plt.ylim([0.0, 1.05])
+		plt.xlabel('False Positive Rate')
+		plt.ylabel('True Positive Rate')
+		plt.title('Receiver operating characteristic example')
+		plt.legend(loc="lower right")
 		plt.show()
+
+
 
 	@staticmethod
 	def plot_log_loss(model, X_test, y_test):
@@ -57,17 +79,38 @@ class Model:
 		plt.show()
 
 	@staticmethod
-	def plot_acc_epoch(model, X_test, y_test):
+	def plot_acc_epoch(model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series)-> None:
 		"""
-		:param model: classifier
-		:param X_test: test data
-		:param y_test: test labels
-		:return: plot of accuracy vs epoch
+		:param model: sklearn model
+		:param X: features
+		:param y: target
+		:return: plot accuracy per epoch
 
 		"""
-		y_pred_proba = model.predict_proba(X_test)[::, 1]
-		accuracy_score(y_test, y_pred_proba)
-		plt.plot(accuracy_score(y_test, y_pred_proba))
+		accuracy = []
+		for i in range(1, 100):
+			model.fit(X, y)
+			y_pred = model.predict(X)
+			accuracy.append(accuracy_score(y, y_pred))
+		plt.plot(accuracy)
+		plt.show()
+
+	@staticmethod
+	def plot_confusion_matrix(model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series)-> None:
+		"""
+		:param model: sklearn model
+		:param X: features
+		:param y: target
+		:return: plot confusion matrix
+
+		"""
+		y_pred = model.predict(X)
+		cm = confusion_matrix(y, y_pred)
+		cm = pd.DataFrame(cm, index=['True Neg', 'True Pos'], columns=['Pred Neg', 'Pred Pos'])
+		cm.index.name = 'Actual'
+		cm.columns.name = 'Predicted'
+		plt.figure(figsize=(10, 7))
+		sns.heatmap(cm, cmap='Blues', annot=True, annot_kws={"size": 16}, fmt='g')
 		plt.show()
 
 
@@ -133,79 +176,79 @@ class Model:
 		cm = confusion_matrix(y_test, y_pred)
 		return cm
 
-	@staticmethod
-	def compare_algorithms2df(sorted_by_measure='accuracy'):
-		"""
-		show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
-		:param sorted_by_measure: measure to sort by
-		:return: dataframe of all algorithms sorted by measure
-
-		"""
-		
-		MLA_columns = []
-		MLA_compare = pd.DataFrame(columns = MLA_columns)
-
-
-		row_index = 0
-		for alg in MLA:
-
-
-		    predicted = alg.fit(X_train, y_train).predict(X_test)
-		    fp, tp, th = roc_curve(y_test, predicted)
-		    MLA_name = alg.__class__.__name__
-		    MLA_compare.loc[row_index,'MLA Name'] = MLA_name
-		    MLA_compare.loc[row_index, 'MLA Train Accuracy'] = round(alg.score(X_train, Y_train), 4)
-		    MLA_compare.loc[row_index, 'MLA Test Accuracy'] = round(alg.score(X1_test, Y1_test), 4)
-		    MLA_compare.loc[row_index, 'MLA Precission'] = precision_score(Y1_test, predicted)
-		    MLA_compare.loc[row_index, 'MLA Recall'] = recall_score(Y1_test, predicted)
-		    MLA_compare.loc[row_index, 'MLA AUC'] = auc(fp, tp)
-		row_index+=1
-    
-		MLA_compare.sort_values(by = ['MLA Test Accuracy'], ascending = False, inplace = True)    
-		return MLA_compare
-	
-	@staticmethod
-	def roc_curve_MLA(MLA):
-		"""
-		:param MLA: list of classifiers
-		:return: plot of roc curve for each classifier
-
-		"""
-		index = 1
-		for alg in MLA:
-
-
-		    predicted = alg.fit(X_train, Y_train).predict(X1_test)
-		    fp, tp, th = roc_curve(Y1_test, predicted)
-		    roc_auc_mla = auc(fp, tp)
-		    MLA_name = alg.__class__.__name__
-		    plt.plot(fp, tp, lw=2, alpha=0.3, label='ROC %s (AUC = %0.2f)'  % (MLA_name, roc_auc_mla))
-
-		    index+=1
-
-		plt.title('ROC Curve comparison')
-		plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-		plt.plot([0,1],[0,1],'r--')
-		plt.xlim([0,1])
-		plt.ylim([0,1])
-		plt.ylabel('True Positive Rate')
-		plt.xlabel('False Positive Rate')    
-		plt.show()
-
-	
-	
-	def metrics(self):
-		"""
-		:return: accuracy, recall, ppv, f1-measure, mcc
-
-		"""
-		accuracy = accuracy_score(self.y_test, self.y_pred)
-		recall = recall_score(self.y_test, self.y_pred)
-		precision = precision_score(self.y_test, self.y_pred)
-		f1 = f1_score(self.y_test, self.y_pred)
-		mcc = matthews_corrcoef(self.y_test, self.y_pred)
-		return accuracy, recall, precision, f1, mcc
-
+	# @staticmethod
+	# def compare_algorithms2df(sorted_by_measure='accuracy'):
+	# 	"""
+	# 	show grid with compared results - accuracy, recall, ppv, f1-measure, mcc
+	# 	:param sorted_by_measure: measure to sort by
+	# 	:return: dataframe of all algorithms sorted by measure
+	#
+	# 	"""
+	#
+	# 	MLA_columns = []
+	# 	MLA_compare = pd.DataFrame(columns = MLA_columns)
+	#
+	#
+	# 	row_index = 0
+	# 	for alg in MLA:
+	#
+	#
+	# 	    predicted = alg.fit(X_train, y_train).predict(X_test)
+	# 	    fp, tp, th = roc_curve(y_test, predicted)
+	# 	    MLA_name = alg.__class__.__name__
+	# 	    MLA_compare.loc[row_index,'MLA Name'] = MLA_name
+	# 	    MLA_compare.loc[row_index, 'MLA Train Accuracy'] = round(alg.score(X_train, Y_train), 4)
+	# 	    MLA_compare.loc[row_index, 'MLA Test Accuracy'] = round(alg.score(X1_test, Y1_test), 4)
+	# 	    MLA_compare.loc[row_index, 'MLA Precission'] = precision_score(Y1_test, predicted)
+	# 	    MLA_compare.loc[row_index, 'MLA Recall'] = recall_score(Y1_test, predicted)
+	# 	    MLA_compare.loc[row_index, 'MLA AUC'] = auc(fp, tp)
+	# 	row_index+=1
+    #
+	# 	MLA_compare.sort_values(by = ['MLA Test Accuracy'], ascending = False, inplace = True)
+	# 	return MLA_compare
+	#
+	# @staticmethod
+	# def roc_curve_MLA(MLA):
+	# 	"""
+	# 	:param MLA: list of classifiers
+	# 	:return: plot of roc curve for each classifier
+	#
+	# 	"""
+	# 	index = 1
+	# 	for alg in MLA:
+	#
+	#
+	# 	    predicted = alg.fit(X_train, Y_train).predict(X1_test)
+	# 	    fp, tp, th = roc_curve(Y1_test, predicted)
+	# 	    roc_auc_mla = auc(fp, tp)
+	# 	    MLA_name = alg.__class__.__name__
+	# 	    plt.plot(fp, tp, lw=2, alpha=0.3, label='ROC %s (AUC = %0.2f)'  % (MLA_name, roc_auc_mla))
+	#
+	# 	    index+=1
+	#
+	# 	plt.title('ROC Curve comparison')
+	# 	plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+	# 	plt.plot([0,1],[0,1],'r--')
+	# 	plt.xlim([0,1])
+	# 	plt.ylim([0,1])
+	# 	plt.ylabel('True Positive Rate')
+	# 	plt.xlabel('False Positive Rate')
+	# 	plt.show()
+	#
+	#
+	#
+	# def metrics(self):
+	# 	"""
+	# 	:return: accuracy, recall, ppv, f1-measure, mcc
+	#
+	# 	"""
+	# 	accuracy = accuracy_score(self.y_test, self.y_pred)
+	# 	recall = recall_score(self.y_test, self.y_pred)
+	# 	precision = precision_score(self.y_test, self.y_pred)
+	# 	f1 = f1_score(self.y_test, self.y_pred)
+	# 	mcc = matthews_corrcoef(self.y_test, self.y_pred)
+	# 	return accuracy, recall, precision, f1, mcc
+	#
 
 
 
