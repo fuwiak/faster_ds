@@ -12,6 +12,7 @@ Welcome to faster_ds's documentation!
 
 
 
+
 Indices and tables
 ==================
 
