@@ -22,7 +22,15 @@ from faster_ds.LLM import send_to_llm
 
 
 class Model:
-        def __init__(self, model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series, test_size: float = 0.2, send_to_llm_flag: bool = False):
+        def __init__(
+            self,
+            model: sklearn.base.BaseEstimator,
+            X: pd.DataFrame,
+            y: pd.Series,
+            test_size: float = 0.2,
+            send_to_llm_flag: bool = False,
+            server_url: str | None = None,
+        ):
 		"""
 		:param model: sklearn model
 		:param X: features
@@ -35,6 +43,7 @@ class Model:
                 self.model.fit(self.X_train, self.y_train)
                 self.y_pred = self.model.predict(self.X_test)
                 self.metrics = self._compute_metrics()
+                self.server_url = server_url
                 if send_to_llm_flag:
                         self.send_metrics_to_llm()
 
@@ -197,7 +206,10 @@ class Model:
 
         def send_metrics_to_llm(self) -> None:
                 """Send computed metrics to an attached LLM service."""
-                send_to_llm(f"Classification metrics: {self.metrics}")
+                send_to_llm(
+                        f"Classification metrics: {self.metrics}",
+                        server_url=self.server_url,
+                )
 
 	# @staticmethod
 	# def compare_algorithms2df(sorted_by_measure='accuracy'):
