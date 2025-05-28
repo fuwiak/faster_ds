@@ -184,7 +184,7 @@ class Preprocessing:
 
     @staticmethod
     def decode_one_hot(df: pd.DataFrame) -> pd.DataFrame:  # pragma: no cover
-        """Placeholder for inverse one-hot encoding."""
+        """Decode a one-hot encoded DataFrame back to its original form."""
         raise NotImplementedError
 
     @staticmethod

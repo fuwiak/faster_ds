@@ -16,6 +16,7 @@ class MCPClient:
     _request_id: int = field(init=False, default=0)
 
     def send_request(self, method: str, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Send a JSON-RPC request to the configured server."""
         payload = {
             "jsonrpc": "2.0",
             "id": self._request_id,
@@ -36,4 +37,5 @@ class MCPClient:
             return {}
 
     def deliver_message(self, message: Any) -> Dict[str, Any]:
+        """Convenience wrapper around ``send_request`` for LLM messages."""
         return self.send_request("deliver_message", {"message": message})

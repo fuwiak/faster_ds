@@ -1,3 +1,5 @@
+"""Placeholder module for dimension reduction utilities."""
+
 import pandas as pd
 import matplotlib.pylab as plt
 

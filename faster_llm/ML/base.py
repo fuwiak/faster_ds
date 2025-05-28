@@ -26,6 +26,7 @@ class BaseModel:
     y_pred: pd.Series | None = field(init=False, default=None)
 
     def __post_init__(self) -> None:
+        """Train the model and optionally send metrics to integrations."""
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             self.X, self.y, test_size=self.test_size
         )
@@ -45,6 +46,7 @@ class BaseModel:
         raise NotImplementedError
 
     def send_metrics_to_llm(self, metrics: dict | None = None) -> None:
+        """Send metrics to an attached LLM service."""
         if metrics is None:
             metrics = self._compute_metrics()
         send_to_llm(f"Model metrics: {metrics}", server_url=self.server_url)

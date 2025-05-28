@@ -1,3 +1,5 @@
+"""Visualization helpers (placeholder)."""
+
 import seaborn as sns
 
 

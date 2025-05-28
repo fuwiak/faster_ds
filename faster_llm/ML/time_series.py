@@ -1,3 +1,5 @@
+"""Time series helper utilities."""
+
 import pandas as pd
 
 from faster_llm.LLM import send_to_llm
