@@ -1,288 +1,226 @@
+"""Utility helpers for dataframe preprocessing."""
+
+from __future__ import annotations
+
+from typing import Dict, List, Tuple
+
 import pandas as pd
 import numpy as np
 
+from faster_ds.LLM import send_to_llm
 
 
 class Preprocessing:
-	"""
-	# Sample usage:
-	# df_enc, mapping_encoding = encode_to_num_df(X)
-	# df_enc = encode_to_num_df(X)
+    """Collection of common preprocessing helpers."""
 
-	"""
+    @staticmethod
+    def csv_as_df(dataset_name: str, path: str = "data/") -> pd.DataFrame:
+        """Load a CSV file and return a :class:`~pandas.DataFrame`."""
+        return pd.read_csv(f"{path}{dataset_name}")
 
-	@staticmethod
-	def csv_as_df(dataset_name: str, path: str = "data/") -> pd.DataFrame:
-		"""
-		:param dataset_name: name of the dataset
-		:param path: path to the dataset
-		:return: pandas DataFrame
-		"""
-		df = pd.read_csv(path + dataset_name)
-		return df
+    @staticmethod
+    def column_names(df: pd.DataFrame) -> List[str]:
+        """Return the dataframe column names."""
+        return list(df.columns)
 
-	@staticmethod
-	def column_names(df: pd.DataFrame) -> list:
-		"""
-		:param df: pandas DataFrame
-		:return: list of column names
-		"""
-		return df.columns
+    @staticmethod
+    def set_X_y(df: pd.DataFrame, target: str) -> Tuple[pd.DataFrame, pd.Series]:
+        """Split dataframe into ``X`` and ``y``."""
+        X = df.drop(columns=target)
+        y = df[target]
+        return X, y
 
-	@staticmethod
-	def set_X_y(df: pd.DataFrame, target: str) -> tuple:
-		"""
-		:param df: pandas DataFrame
-		:param target: target column
-		:return: tuple of X and y
-		"""
-		X = df.drop(target, axis=1)
-		y = df[target]
-		return X, y
+    @staticmethod
+    def get_numerical_columns(df: pd.DataFrame) -> List[str]:
+        """Return a list of numerical column names."""
+        return list(df.select_dtypes(include="number").columns)
 
-	@staticmethod
-	def get_numerical_columns(df: pd.DataFrame) -> list:
-		"""
-		:param df: pandas DataFrame
-		:return: list of numerical columns
-		"""
-		return df.select_dtypes(include=np.number).columns
+    @staticmethod
+    def get_categorical_columns(df: pd.DataFrame) -> List[str]:
+        """Return a list of categorical column names."""
+        return list(df.select_dtypes(include="object").columns)
 
+    @staticmethod
+    def is_missing(df: pd.DataFrame) -> pd.Series:
+        """Return number of missing values per column."""
+        return df.isnull().sum()
 
-	@staticmethod
-	def get_categorical_columns(df: pd.DataFrame) -> list:
-		"""
-		:param df: pandas DataFrame
-		:return: list of categorical columns
-		"""
-		return df.select_dtypes(include=np.object).columns
+    @staticmethod
+    def count_missing(df: pd.DataFrame) -> int:
+        """Return total number of missing values in dataframe."""
+        return int(df.isnull().sum().sum())
 
+    @staticmethod
+    def normalization(df: pd.DataFrame) -> pd.DataFrame:
+        """Return z-score normalized dataframe."""
+        mean = df.mean()
+        std = df.std()
+        return (df - mean) / std
 
-	@staticmethod
-	def is_missing(df: pd.DataFrame) -> pd.DataFrame:
-		"""
-		:param df: pandas DataFrame
-		:return: pandas DataFrame with missing values
-		"""
-		return df.isnull().sum()
+    @staticmethod
+    def standarization(df: pd.DataFrame) -> pd.DataFrame:
+        """Scale values to [0, 1] range using max value."""
+        return df / df.max()
 
+    @staticmethod
+    def na_handling(
+        df: pd.DataFrame,
+        strategy: str = "mean",
+        specific_value: str | int | float = 0,
+    ) -> pd.DataFrame:
+        """Fill missing values using a chosen strategy."""
+        strategies: Dict[str, pd.DataFrame] = {
+            "mean": df.fillna(df.mean()),
+            "mode": df.apply(lambda col: col.fillna(col.mode().iloc[0])),
+            "0": df.fillna(0),
+            "zero": df.fillna(0),
+            "specific_value": df.fillna(specific_value),
+            "next_row": df.fillna(method="ffill"),
+            "previous_row": df.fillna(method="bfill"),
+        }
+        if strategy not in strategies:
+            raise ValueError("Strategy not found")
+        return strategies[strategy]
 
-	@staticmethod
-	def count_missing(df: pd.DataFrame) -> int:
-		"""
-		:param df: pandas DataFrame
-		:return: number of missing values
-		"""
-		return df.isnull().sum().sum()
+    @staticmethod
+    def na_column_handling(
+        df: pd.DataFrame,
+        col: str,
+        strategy: str,
+        specific_value: str | int | float = 0,
+    ) -> pd.DataFrame:
+        """Fill missing values for a single column."""
+        if strategy == "polynomial":
+            df[col] = df[col].interpolate(method="polynomial", order=2)
+        elif strategy in {"previous_row", "bfill"}:
+            df[col] = df[col].fillna(method="bfill")
+        elif strategy in {"next_row", "ffill"}:
+            df[col] = df[col].fillna(method="ffill")
+        elif strategy in {"0", "zero"}:
+            df[col] = df[col].fillna(0)
+        elif strategy == "specific_value":
+            df[col] = df[col].fillna(specific_value)
+        elif strategy == "mean":
+            df[col] = df[col].fillna(df[col].mean())
+        elif strategy == "mode":
+            df[col] = df[col].fillna(df[col].mode().iloc[0])
+        else:
+            raise ValueError("Wrong specified strategy")
+        return df
 
-	@staticmethod
-	def normalization(df: pd.DataFrame) -> pd.DataFrame:
-		"""
-		:param df: pandas DataFrame
-		:return: normalized pandas DataFrame
-		"""
-		mean = df.mean()
-		std = df.std()
-		return (df - mean) / std
+    @staticmethod
+    def na_column_handling_dict(
+        df: pd.DataFrame,
+        col: str,
+        specific_value: str | int | float = 0,
+    ) -> Dict[str, pd.Series]:
+        """Return a mapping of strategies to filled columns."""
+        return {
+            "polynomial": df[col].interpolate(method="polynomial", order=2),
+            "previous_row": df[col].fillna(method="bfill"),
+            "next_row": df[col].fillna(method="ffill"),
+            "0": df[col].fillna(0),
+            "specific_value": df[col].fillna(specific_value),
+            "mean": df[col].fillna(df[col].mean()),
+            "mode": df[col].fillna(df[col].mode().iloc[0]),
+        }
 
-	
-	@staticmethod
-	def standarization(df: pd.DataFrame) -> pd.DataFrame:
-		"""
-		:param df: pandas DataFrame
-		:return: standarized pandas DataFrame
-		"""
-		return df/df.max()
+    @staticmethod
+    def na_non_na_set(df: pd.DataFrame) -> pd.DataFrame:
+        """Return rows containing at least one missing value."""
+        return df[df.isnull().any(axis=1)]
 
-	@staticmethod
-	def na_handling(df: pd.DataFrame, strategy: str = "mean", specific_value: str = "0") -> pd.DataFrame:
-		"""
-		:param df: pandas DataFrame
-		:param strategy: strategy to handle missing values
-		:param specific_value: specific value to fill missing values
-		:return: pandas DataFrame with no missing values
+    @staticmethod
+    def show_columns_with_nan(df: pd.DataFrame) -> List[str]:
+        """Return list of columns that contain NaN values."""
+        return df.columns[df.isna().any()].tolist()
 
-		"""
+    @staticmethod
+    def encode_object(
+        X_train: pd.DataFrame, X_test: pd.DataFrame
+    ) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        """Label encode object columns in train and test sets."""
+        from sklearn import preprocessing
 
-		#list of stategies -> mean, mode, 0, spefic_value, next_row, previous_row
-		if strategy == "mean":
-			return df.fillna(df.mean(), inplace=True)
-		elif strategy == "mode":
-			return df.apply(lambda col: col.fillna(col.mode().iloc[0]), axis=0)
-		elif strategy == "0":
-			return df.fillna(0, inplace=True)
-		elif strategy == "specific_value":
-			return df.fillna(specific_value, inplace=True)
-		elif strategy == "next_row":
-			return df.fillna(method="ffill", inplace=True)
-		elif strategy == "previous_row":
-			return df.fillna(method="backfill", inplace=True)
-		else:
-			raise ValueError("Strategy not found")
+        for col in X_train.columns:
+            if X_train[col].dtype == "object" or X_test[col].dtype == "object":
+                lbl = preprocessing.LabelEncoder()
+                lbl.fit(list(X_train[col].values) + list(X_test[col].values))
+                X_train[col] = lbl.transform(list(X_train[col].values))
+                X_test[col] = lbl.transform(list(X_test[col].values))
+        return X_train, X_test
 
-	
-	# @staticmethod
-	# def na_column_handling(df, col,name_of_strategy,specific_value="0"):
-	# 	if name_of_strategy=="polynomial":
-	# 		df[col] = df[col].interpolate(method='polynomial', order=2)
-	# 		return df
-	#
-	# 	elif name_of_strategy=="previous_row":
-	# 		df[col]=df[col].fillna(method="backfill", inplace=True)
-	# 		return df
-	# 	elif name_of_strategy=="next_row":
-	# 		df[col] = df[col].fillna(method="ffill", inplace=True)
-	# 		return df
-	# 	elif name_of_strategy=="0":
-	# 		df[col] = df[col].fillna(0, inplace=True)
-	# 		return df
-	#
-	# 	elif name_of_strategy=="specific_value":
-	# 		df[col] = df[col].fillna(specific_value, inplace=True)
-	# 		return df
-	#
-	#
-	# 	elif name_of_strategy=="mean":
-	# 		df[col] =df[col].fillna(df.mean(), inplace=True)
-	# 		return df
-	# 	elif name_of_strategy=="mode":
-	# 		df[col] =df[col].fillna(df.mode(dropna=True), inplace=True)
-	# 		return df
-	# 	else:
-	# 		print("Wrong specified strategy")
-	#
-	# def na_column_handling_dict(df, col,name_of_strategy,specific_value="0"):
-	#   col_dict = {}
-	#   col_dict["polynomial"] = df[col].interpolate(method='polynomial', order=2)
-	#   col_dict["previous_row"] = df[col]=df[col].fillna(method="backfill", inplace=True)
-	#   col_dict["next_row"] = df[col].fillna(method="ffill", inplace=True)
-	#   col_dict["O"] = df[col].fillna(0, inplace=True)
-	#   col_dict["specific_value"] = df[col].fillna(specific_value, inplace=True)
-	#   col_dict["mean"] = df[col].fillna(df.mean(), inplace=True)
-	#   col_dict["mode"] = df[col].apply(lambda col: col.fillna(col.mode().iloc[0]), axis=0)
-	#   return col_dict
-	#
-	#
-	# @staticmethod
-	# def na_non_na_set(df):
-	#
-	# 	#split set to set with all na's and without
-	# 	return df[df.isnull().any(axis=1)]
-	#
-	# @staticmethod
-	# def show_columns_with_nan(df):
-	# 	list_ = df.columns[df.isna().any()].tolist()
-	# 	return list_
-	#
-	#
-	#
-	# # @staticmethod
-	# # def encode_object(X_train, X_test):
-	# # 	from sklearn import preprocessing
-	#
-	# # 	# Label Encoding
-	# # 	for f in X_train.columns:
-	# # 	    if X_train[f].dtype=='object' or X_test[f].dtype=='object':
-	# # 		lbl = preprocessing.LabelEncoder()
-	# # 		lbl.fit(list(X_train[f].values) + list(X_test[f].values))
-	# # 		X_train[f] = lbl.transform(list(X_train[f].values))
-	# # 		X_test[f] = lbl.transform(list(X_test[f].values))
-	# # 	return X_train, X_test
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	# @staticmethod
-	# def encode_to_num_df(df):
-	# 	from sklearn.preprocessing import LabelEncoder
-	# 	df = df.apply(LabelEncoder().fit_transform)
-	# 	return df
-	#
-	# @staticmethod
-	# def decode_label_df(df, le):
-	# 	df = df.apply(le.inverse_transform)
-	# 	return df
-	#
-	# @staticmethod
-	# def encode_single_column(df, col_name):
-	# 	from sklearn.preprocessing import LabelEncoder
-	# 	le = LabelEncoder()
-	# 	df[col_name] = le.fit_transform(df[col_name])
-	# 	return df
-	#
-	# @staticmethod
-	# def decode_single_column(df, col_name, le):
-	# 	from sklearn.preprocessing import LabelEncoder
-	# 	le = LabelEncoder()
-	# 	df[col_name] = le.inverse_transform(df[col_name])
-	# 	return df
-	#
-	# @staticmethod
-	# def one_hot_encode(df):
-	# 	# One hot encoding
-	# 	df  = pd.get_dummies(df)
-	# 	return df
-	#
-	# @staticmethod
-	# def decode_one_hot(df):
-	# 	pass
-	#
-	# def encode_to_num_df(col: pd.Series):
-	# 	"""
-	# 	Sample usage:
-	# 	mapping_encoding = []
-	# 	for name in X.columns:
-	# 		df_enc[name], d = encode_to_num_df(X[name])
-	# 		mapping_encoding.append(d)
-	#
-	#
-	#
-	# 	"""
-	# 	from sklearn.preprocessing import LabelEncoder
-	# 	le = LabelEncoder()
-	# 	col_enc = le.fit_transform(col)
-	# 	d = dict(zip(le.transform(le.classes_),le.classes_))
-	# 	return col_enc, d
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	# @staticmethod
-	# def remove_collinear_var(df,threshold=0.9):
-	# 	"""Remove Collinear Variables"""
-	# 	corr_matrix = df.corr().abs()
-	# 	upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
-	# 	to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
-	# 	result = df.drop(columns = to_drop, inplace=True)
-	# 	return result
-	#
-	# @staticmethod
-	# def remove_to_lot_missing(df, threshold=0.7):
-	# 	missing = (df.isnull().sum() / len(df))
-	# 	df_missing = missing.index[train_missing > threshold]
-	# 	result = df.drop(columns = missing, inplace=True)
-	# 	return result
-	#
-	# @staticmethod
-	# def test_train(X, y, ratio=0.3,random_state=100):
-	# 	from sklearn.model_selection import train_test_split
-	#
-	#
-	# 	train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=ratio)
-	# 	return train_X, test_X, train_y, test_y
-	#
-	#
-	#
-	#
+    @staticmethod
+    def encode_to_num_df(df: pd.DataFrame) -> pd.DataFrame:
+        """Label encode all columns of a dataframe."""
+        from sklearn.preprocessing import LabelEncoder
 
+        return df.apply(LabelEncoder().fit_transform)
 
+    @staticmethod
+    def decode_label_df(df: pd.DataFrame, le) -> pd.DataFrame:
+        """Inverse transform a dataframe using a fitted encoder."""
+        return df.apply(le.inverse_transform)
+
+    @staticmethod
+    def encode_single_column(df: pd.DataFrame, col_name: str):
+        """Label encode a single column and return the encoder."""
+        from sklearn.preprocessing import LabelEncoder
+
+        le = LabelEncoder()
+        df[col_name] = le.fit_transform(df[col_name])
+        return df, le
+
+    @staticmethod
+    def decode_single_column(df: pd.DataFrame, col_name: str, le) -> pd.DataFrame:
+        """Inverse transform a single encoded column."""
+        df[col_name] = le.inverse_transform(df[col_name])
+        return df
+
+    @staticmethod
+    def one_hot_encode(df: pd.DataFrame) -> pd.DataFrame:
+        """Return one-hot encoded dataframe."""
+        return pd.get_dummies(df)
+
+    @staticmethod
+    def decode_one_hot(df: pd.DataFrame) -> pd.DataFrame:  # pragma: no cover
+        """Placeholder for inverse one-hot encoding."""
+        raise NotImplementedError
+
+    @staticmethod
+    def encode_to_num_series(col: pd.Series) -> Tuple[pd.Series, Dict[int, str]]:
+        """Encode a single series and return mapping."""
+        from sklearn.preprocessing import LabelEncoder
+
+        le = LabelEncoder()
+        col_enc = le.fit_transform(col)
+        mapping = dict(zip(le.transform(le.classes_), le.classes_))
+        return pd.Series(col_enc, index=col.index), mapping
+
+    @staticmethod
+    def remove_collinear_var(df: pd.DataFrame, threshold: float = 0.9) -> pd.DataFrame:
+        """Remove highly correlated variables."""
+        corr_matrix = df.corr().abs()
+        upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+        to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
+        return df.drop(columns=to_drop)
+
+    @staticmethod
+    def remove_to_lot_missing(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame:
+        """Remove columns with a high percentage of missing values."""
+        missing = df.isnull().sum() / len(df)
+        cols = missing[missing > threshold].index
+        return df.drop(columns=cols)
+
+    @staticmethod
+    def test_train(
+        X: pd.DataFrame,
+        y: pd.Series,
+        ratio: float = 0.3,
+        random_state: int = 100,
+    ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+        """Split data into train and test sets."""
+        from sklearn.model_selection import train_test_split
+
+        return train_test_split(X, y, test_size=ratio, random_state=random_state)
 
