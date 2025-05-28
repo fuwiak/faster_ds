@@ -4,7 +4,7 @@ import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from faster_ds.LLM import send_to_llm, send_mcp_request
+from faster_llm.LLM import send_to_llm, send_mcp_request
 
 
 def test_send_to_llm(capsys):
@@ -22,7 +22,7 @@ def test_send_to_llm_mcp(monkeypatch):
         recorded["server_url"] = server_url
         return {}
 
-    monkeypatch.setattr("faster_ds.LLM.send_mcp_request", fake)
+    monkeypatch.setattr("faster_llm.LLM.send_mcp_request", fake)
     send_to_llm("world", server_url="http://example.com")
 
     assert recorded == {

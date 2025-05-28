@@ -4,7 +4,7 @@ import datetime
 import numpy as np
 import matplotlib.pylab as plt
 
-from faster_ds.doc import doc
+from faster_llm.doc import doc
 
 
 class FakeData:

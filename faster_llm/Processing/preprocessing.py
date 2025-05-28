@@ -7,7 +7,7 @@ from typing import Dict, List, Tuple
 import pandas as pd
 import numpy as np
 
-from faster_ds.LLM import send_to_llm
+from faster_llm.LLM import send_to_llm
 
 
 class Preprocessing:
