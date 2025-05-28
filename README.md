@@ -16,6 +16,24 @@
 - Simple generator for producing fake data for experiments
 - MCP client for forwarding messages to LLM services
 
+## Quick Demo
+
+Fancy a lightning-fast example? Generate a fake dataset, train a model and
+have the metrics sent to your favourite LLM in just a few lines:
+
+```python
+from faster_llm.Tools.generate_fake_data import FakeData
+from faster_llm.ML.classification import Model
+from sklearn.linear_model import LogisticRegression
+
+data = FakeData.classification_data(100)
+X = data.drop(columns=["HaveAjob"])
+y = data["HaveAjob"]
+
+model = Model(LogisticRegression(max_iter=200), X, y, send_to_llm_flag=True)
+print(model._compute_metrics())
+```
+
 ## Install from PyPI
 
 ```bash
