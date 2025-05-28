@@ -24,6 +24,7 @@
 
 * Train models using your favorite frameworks like **scikit-learn**, **PyTorch**, or **Keras**
 * Automatically pass metrics, charts, and pipeline artifacts to LLMs (e.g., **Mistral-7B**)
+* Classification results can be sent directly to your LLM for further analysis
 * Generate reports, insights, or even code based on model results — all with minimal setup
 
 > Think of it as a seamless connector between your ML stack and smart assistants powered by LLMs.
