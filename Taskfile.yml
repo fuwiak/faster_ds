@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  test:
+    desc: Run the unit test suite
+    cmds:
+      - pytest
+
+  lint:
+    desc: Lint the codebase
+    cmds:
+      - flake8 .
+      - pydocstyle faster_llm
+
+  release:
+    desc: Publish a new release via Poetry
+    cmds:
+      - poetry publish --build
