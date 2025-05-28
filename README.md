@@ -39,6 +39,20 @@
 
 ---
 
+## 🐳 Docker Compose
+
+Run the project inside containers using **Docker Compose**. Building the
+stack and executing the test suite can be done with:
+
+```bash
+docker compose up --build
+```
+
+This installs dependencies in a container and runs `pytest` against the
+codebase.
+
+---
+
 ## 🛠️ Continuous Integration
 
 Our GitHub Actions workflows run after each commit or pull request. The pipeline
