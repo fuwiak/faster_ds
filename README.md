@@ -41,8 +41,14 @@
 
 ## 🐳 Docker Compose
 
-Run the project inside containers using **Docker Compose**. Building the
-stack and executing the test suite can be done with:
+Run the project inside containers using **Docker Compose**. The stack now
+includes monitoring and experiment tracking services:
+
+* **Prometheus** and **Grafana** for metrics
+* **MLflow** for experiment logging
+* **Langsmith** for LLM interaction logging
+
+Building the stack and executing the test suite can be done with:
 
 ```bash
 docker compose up --build
