@@ -4,6 +4,8 @@ import datetime
 import numpy as np
 import matplotlib.pylab as plt
 
+from faster_ds.doc import doc
+
 
 class FakeData:
 	'''
@@ -76,18 +78,9 @@ class FakeData:
 
 		df = pd.DataFrame(data, columns=headers)
 		return df
-	@staticmethod
-	def regression_data(how_many):	
-		"""
-		Returns Pandas Dataframe with data to regression
-
-		Parameters
-		-----------
-		how_many
-			number of rows of text in dataframe
-
-
-		"""
+        @staticmethod
+        @doc(classification_data)
+        def regression_data(how_many):
 		data=[]
 		for i in range(how_many):
 			temp= Faker('en_US')
