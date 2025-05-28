@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
-from faster_ds.LLM import send_to_llm
+from faster_llm.LLM import send_to_llm
 
 
 

@@ -3,8 +3,8 @@ import sklearn
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
 
-from faster_ds.LLM import send_to_llm
-from faster_ds.doc import doc
+from faster_llm.LLM import send_to_llm
+from faster_llm.doc import doc
 from .classification import Model as ClassificationModel
 
 

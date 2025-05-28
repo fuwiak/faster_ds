@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Check docstrings
       run: |
-        pydocstyle faster_ds
+        pydocstyle faster_llm
     - name: Test with pytest
       run: |
         pytest

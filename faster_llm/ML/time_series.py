@@ -1,6 +1,6 @@
 import pandas as pd
 
-from faster_ds.LLM import send_to_llm
+from faster_llm.LLM import send_to_llm
 
 
 class TimeSeries:

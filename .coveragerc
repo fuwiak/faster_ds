@@ -2,9 +2,9 @@
 # for more info: https://coverage.readthedocs.io/en/coverage-4.4.1/config.html
 [run]
 omit =
-    faster_ds/pkg/*
-    faster_ds/docs/*
-    faster_ds/tests/*
+    faster_llm/pkg/*
+    faster_llm/docs/*
+    faster_llm/tests/*
 
 [report]
 # Regexes for lines to exclude from consideration
