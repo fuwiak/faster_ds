@@ -2,6 +2,8 @@
 faster_llm_venv/
 faster_llm.egg-info/
 faster_llm-*/
+.venv
+poetry.lock
 
 
 # Byte-compiled / optimized / DLL files
