@@ -1,3 +1,5 @@
+"""Hyperparameter tuning utilities (placeholder)."""
+
 import pandas as pd
 import numpy as np
 

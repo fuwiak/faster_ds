@@ -1,5 +1,5 @@
 
-
+"""Placeholder module for future pipeline utilities."""
 
 # class FasterPipeline:
   

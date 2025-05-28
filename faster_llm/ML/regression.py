@@ -16,6 +16,7 @@ class Model(BaseModel):
 
     @doc(ClassificationModel.__init__)
     def __init__(self, *args, **kwargs):
+        """Initialize the regression model."""
         super().__init__(*args, **kwargs)
 
     def _compute_metrics(self) -> dict:
@@ -27,6 +28,7 @@ class Model(BaseModel):
 
     @doc(ClassificationModel.send_metrics_to_llm)
     def send_metrics_to_llm(self) -> None:
+        """Send regression metrics to the configured LLM."""
         from faster_llm.LLM import send_to_llm
 
         send_to_llm(

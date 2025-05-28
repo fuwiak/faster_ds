@@ -11,6 +11,8 @@ try:  # optional dependency
     from prometheus_client import Counter, start_http_server
 except Exception:  # pragma: no cover - optional
     class Counter:
+        """Simple stand-in for Prometheus Counter when dependency missing."""
+
         class _Value:
             def __init__(self) -> None:
                 self.val = 0
@@ -22,19 +24,25 @@ except Exception:  # pragma: no cover - optional
                 self.val = v
 
         def __init__(self, *_, **__):
+            """Initialize the dummy counter."""
             self._value = self._Value()
 
         def inc(self, amount: int = 1) -> None:
+            """Increase the counter by ``amount``."""
             self._value.set(self._value.get() + amount)
 
     def start_http_server(*_, **__):  # type: ignore
+        """Placeholder for ``start_http_server`` when Prometheus is absent."""
         pass
 
 try:  # optional dependency
     import mlflow
 except Exception:  # pragma: no cover - optional
     class DummyMLflow:
+        """Fallback MLflow object used when MLflow isn't installed."""
+
         def log_metric(self, *_, **__):
+            """Ignore metric logging when MLflow is unavailable."""
             pass
 
     mlflow = DummyMLflow()

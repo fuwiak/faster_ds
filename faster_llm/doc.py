@@ -5,7 +5,7 @@ from typing import Any, Callable
 
 def doc(source: Any) -> Callable[[Callable], Callable]:
     """Return decorator that copies ``__doc__`` from *source*.
-
+    
     Parameters
     ----------
     source : Any
@@ -13,7 +13,6 @@ def doc(source: Any) -> Callable[[Callable], Callable]:
         directly. Otherwise the ``__doc__`` attribute is read from the
         object.
     """
-
     docstring = source if isinstance(source, str) else getattr(source, "__doc__", None)
 
     def decorator(func: Callable) -> Callable:
