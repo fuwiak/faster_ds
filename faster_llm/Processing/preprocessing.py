@@ -7,66 +7,126 @@ from typing import Dict, List, Tuple
 import pandas as pd
 import numpy as np
 
-from faster_llm.LLM import send_to_llm
+from .utils import mcp_notify
 
 
 class Preprocessing:
     """Collection of common preprocessing helpers."""
 
     @staticmethod
-    def csv_as_df(dataset_name: str, path: str = "data/") -> pd.DataFrame:
+    @mcp_notify
+    def csv_as_df(
+        dataset_name: str,
+        path: str = "data/",
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Load a CSV file and return a :class:`~pandas.DataFrame`."""
         return pd.read_csv(f"{path}{dataset_name}")
 
     @staticmethod
-    def column_names(df: pd.DataFrame) -> List[str]:
+    @mcp_notify
+    def column_names(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> List[str]:
         """Return the dataframe column names."""
         return list(df.columns)
 
     @staticmethod
-    def set_X_y(df: pd.DataFrame, target: str) -> Tuple[pd.DataFrame, pd.Series]:
+    @mcp_notify
+    def set_X_y(
+        df: pd.DataFrame,
+        target: str,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> Tuple[pd.DataFrame, pd.Series]:
         """Split dataframe into ``X`` and ``y``."""
         X = df.drop(columns=target)
         y = df[target]
         return X, y
 
     @staticmethod
-    def get_numerical_columns(df: pd.DataFrame) -> List[str]:
+    @mcp_notify
+    def get_numerical_columns(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> List[str]:
         """Return a list of numerical column names."""
         return list(df.select_dtypes(include="number").columns)
 
     @staticmethod
-    def get_categorical_columns(df: pd.DataFrame) -> List[str]:
+    @mcp_notify
+    def get_categorical_columns(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> List[str]:
         """Return a list of categorical column names."""
         return list(df.select_dtypes(include="object").columns)
 
     @staticmethod
-    def is_missing(df: pd.DataFrame) -> pd.Series:
+    @mcp_notify
+    def is_missing(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.Series:
         """Return number of missing values per column."""
         return df.isnull().sum()
 
     @staticmethod
-    def count_missing(df: pd.DataFrame) -> int:
+    @mcp_notify
+    def count_missing(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> int:
         """Return total number of missing values in dataframe."""
         return int(df.isnull().sum().sum())
 
     @staticmethod
-    def normalization(df: pd.DataFrame) -> pd.DataFrame:
+    @mcp_notify
+    def normalization(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Return z-score normalized dataframe."""
         mean = df.mean()
         std = df.std()
         return (df - mean) / std
 
     @staticmethod
-    def standarization(df: pd.DataFrame) -> pd.DataFrame:
+    @mcp_notify
+    def standarization(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Scale values to [0, 1] range using max value."""
         return df / df.max()
 
     @staticmethod
+    @mcp_notify
     def na_handling(
         df: pd.DataFrame,
         strategy: str = "mean",
         specific_value: str | int | float = 0,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
     ) -> pd.DataFrame:
         """Fill missing values using a chosen strategy."""
         strategies: Dict[str, pd.DataFrame] = {
@@ -83,11 +143,15 @@ class Preprocessing:
         return strategies[strategy]
 
     @staticmethod
+    @mcp_notify
     def na_column_handling(
         df: pd.DataFrame,
         col: str,
         strategy: str,
         specific_value: str | int | float = 0,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
     ) -> pd.DataFrame:
         """Fill missing values for a single column."""
         if strategy == "polynomial":
@@ -109,10 +173,14 @@ class Preprocessing:
         return df
 
     @staticmethod
+    @mcp_notify
     def na_column_handling_dict(
         df: pd.DataFrame,
         col: str,
         specific_value: str | int | float = 0,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
     ) -> Dict[str, pd.Series]:
         """Return a mapping of strategies to filled columns."""
         return {
@@ -126,18 +194,35 @@ class Preprocessing:
         }
 
     @staticmethod
-    def na_non_na_set(df: pd.DataFrame) -> pd.DataFrame:
+    @mcp_notify
+    def na_non_na_set(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Return rows containing at least one missing value."""
         return df[df.isnull().any(axis=1)]
 
     @staticmethod
-    def show_columns_with_nan(df: pd.DataFrame) -> List[str]:
+    @mcp_notify
+    def show_columns_with_nan(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> List[str]:
         """Return list of columns that contain NaN values."""
         return df.columns[df.isna().any()].tolist()
 
     @staticmethod
+    @mcp_notify
     def encode_object(
-        X_train: pd.DataFrame, X_test: pd.DataFrame
+        X_train: pd.DataFrame,
+        X_test: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
     ) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """Label encode object columns in train and test sets."""
         from sklearn import preprocessing
@@ -151,19 +236,39 @@ class Preprocessing:
         return X_train, X_test
 
     @staticmethod
-    def encode_to_num_df(df: pd.DataFrame) -> pd.DataFrame:
+    @mcp_notify
+    def encode_to_num_df(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Label encode all columns of a dataframe."""
         from sklearn.preprocessing import LabelEncoder
 
         return df.apply(LabelEncoder().fit_transform)
 
     @staticmethod
-    def decode_label_df(df: pd.DataFrame, le) -> pd.DataFrame:
+    @mcp_notify
+    def decode_label_df(
+        df: pd.DataFrame,
+        le,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Inverse transform a dataframe using a fitted encoder."""
         return df.apply(le.inverse_transform)
 
     @staticmethod
-    def encode_single_column(df: pd.DataFrame, col_name: str):
+    @mcp_notify
+    def encode_single_column(
+        df: pd.DataFrame,
+        col_name: str,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ):
         """Label encode a single column and return the encoder."""
         from sklearn.preprocessing import LabelEncoder
 
@@ -172,23 +277,49 @@ class Preprocessing:
         return df, le
 
     @staticmethod
-    def decode_single_column(df: pd.DataFrame, col_name: str, le) -> pd.DataFrame:
+    @mcp_notify
+    def decode_single_column(
+        df: pd.DataFrame,
+        col_name: str,
+        le,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Inverse transform a single encoded column."""
         df[col_name] = le.inverse_transform(df[col_name])
         return df
 
     @staticmethod
-    def one_hot_encode(df: pd.DataFrame) -> pd.DataFrame:
+    @mcp_notify
+    def one_hot_encode(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Return one-hot encoded dataframe."""
         return pd.get_dummies(df)
 
     @staticmethod
-    def decode_one_hot(df: pd.DataFrame) -> pd.DataFrame:  # pragma: no cover
+    @mcp_notify
+    def decode_one_hot(
+        df: pd.DataFrame,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:  # pragma: no cover
         """Decode a one-hot encoded DataFrame back to its original form."""
         raise NotImplementedError
 
     @staticmethod
-    def encode_to_num_series(col: pd.Series) -> Tuple[pd.Series, Dict[int, str]]:
+    @mcp_notify
+    def encode_to_num_series(
+        col: pd.Series,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> Tuple[pd.Series, Dict[int, str]]:
         """Encode a single series and return mapping."""
         from sklearn.preprocessing import LabelEncoder
 
@@ -198,7 +329,14 @@ class Preprocessing:
         return pd.Series(col_enc, index=col.index), mapping
 
     @staticmethod
-    def remove_collinear_var(df: pd.DataFrame, threshold: float = 0.9) -> pd.DataFrame:
+    @mcp_notify
+    def remove_collinear_var(
+        df: pd.DataFrame,
+        threshold: float = 0.9,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Remove highly correlated variables."""
         corr_matrix = df.corr().abs()
         upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
@@ -206,18 +344,29 @@ class Preprocessing:
         return df.drop(columns=to_drop)
 
     @staticmethod
-    def remove_to_lot_missing(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame:
+    @mcp_notify
+    def remove_to_lot_missing(
+        df: pd.DataFrame,
+        threshold: float = 0.7,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
+    ) -> pd.DataFrame:
         """Remove columns with a high percentage of missing values."""
         missing = df.isnull().sum() / len(df)
         cols = missing[missing > threshold].index
         return df.drop(columns=cols)
 
     @staticmethod
+    @mcp_notify
     def test_train(
         X: pd.DataFrame,
         y: pd.Series,
         ratio: float = 0.3,
         random_state: int = 100,
+        *,
+        notify: bool = False,
+        server_url: str | None = None,
     ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """Split data into train and test sets."""
         from sklearn.model_selection import train_test_split
