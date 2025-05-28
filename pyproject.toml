@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "faster_llm"
+version = "0.0.1"
+description = "Numpy/Pandas based module make faster data analysis"
+authors = ["fuwiak <poczta130@gmail.com>"]
+license = "MIT"
+readme = "README.rst"
+repository = "https://github.com/fuwiak/faster_llm"
+packages = [{ include = "faster_llm" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = ">=1.24.1"
+pandas = ">=1.5.2"
+scikit-learn = ">=1.2.0"
+matplotlib = ">=3.6.2"
+mlflow = ">=2.0.0"
+langsmith = ">=0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

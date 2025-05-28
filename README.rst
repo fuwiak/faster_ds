@@ -65,10 +65,20 @@ click **fork** or type in console
 
 - git clone https://github.com/fuwiak/faster_llm
 - cd faster_llm
-- create virtualenv
-- virtualenv -p python3.11 env_name
-- source env_name/bin/activate
-- pip install -r requirements.txt
+- install `poetry`
+- `poetry install`
+
+## Publishing to PyPI
+
+The project uses `poetry` for packaging and releasing. After bumping the
+version run:
+
+.. code-block:: console
+
+    $ poetry publish --build
+
+The workflow in `.github/workflows/python-publish.yml` will publish the
+package automatically when a release is created.
 
 Do you have any questions or suggest? Please edit this file -----> *feature_request.md*
 
