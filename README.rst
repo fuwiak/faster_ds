@@ -66,7 +66,7 @@ click **fork** or type in console
 - git clone https://github.com/fuwiak/faster_ds
 - cd faster_ds
 - create virtualenv
-- virtualenv -p python3 env_name
+- virtualenv -p python3.11 env_name
 - source env_name/bin/activate
 - pip install -r requirements.txt
 
@@ -167,7 +167,7 @@ new_df = remove_to_lot_missing(df, threshold=0.7)
 # fake(sample) data
 ```{BASH}
 
-python3 -i generate_fake_data.py
+python3.11 -i generate_fake_data.py
 
 ```
 

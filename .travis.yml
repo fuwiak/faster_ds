@@ -1,6 +1,6 @@
 language: python
 
-python:
+python: "3.11"
 
 install:
   - pip install --editable . # Install it self
