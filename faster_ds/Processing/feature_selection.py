@@ -5,9 +5,11 @@ import matplotlib.pylab as plt
 
 
 class FeatureSelection:
+        """Utility class for feature selection algorithms."""
 
-	def __init__(self):
-		pass
+        def __init__(self):
+                """Initialize the feature selection class."""
+                pass
 
 
 	@staticmethod

@@ -5,5 +5,7 @@ from sklearn.metrics import mean_squared_error
 
 
 class Model:
+    """Placeholder model class for regression algorithms."""
+
     pass
     

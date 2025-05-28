@@ -2,7 +2,9 @@ import seaborn as sns
 
 
 class Model:
-	pass
+        """Visualization utilities placeholder."""
+
+        pass
 
 
 
