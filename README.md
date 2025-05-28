@@ -13,8 +13,9 @@
 - Helpers for passing results to LLM frameworks
 - Feature selection, model evaluation and hyperparameter tuning tools
 - Wrappers around common scikit‑learn and XGBoost models
+- Lightweight wrappers for Keras, PyTorch and PyTorch Lightning
 - Simple generator for producing fake data for experiments
-- MCP client for forwarding messages to LLM services
+- MCP client for forwarding messages to LLM services and AI agents
 
 ## Quick Demo
 
@@ -75,6 +76,9 @@ model on the included Iris dataset and prints evaluation metrics via the
 ```bash
 python examples/classification_example.py
 ```
+
+The same helper can forward metrics from Keras, PyTorch or PyTorch Lightning
+models to AI agents by using the library's MCP integration.
 
 ## Bug Reports & Feature Requests
 
