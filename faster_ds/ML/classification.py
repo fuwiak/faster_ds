@@ -2,20 +2,27 @@ import pandas as pd
 import numpy as np
 import sklearn
 import seaborn as sns
-from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
+from sklearn.metrics import (
+    roc_curve,
+    auc,
+    accuracy_score,
+    recall_score,
+    precision_score,
+)
 from sklearn.metrics import log_loss, f1_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score
+from faster_ds.LLM import send_to_llm
 
 
 
 
 
 class Model:
-	def __init__(self, model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series, test_size: float = 0.2):
+        def __init__(self, model: sklearn.base.BaseEstimator, X: pd.DataFrame, y: pd.Series, test_size: float = 0.2, send_to_llm_flag: bool = False):
 		"""
 		:param model: sklearn model
 		:param X: features
@@ -23,10 +30,13 @@ class Model:
 		:param test_size: test size
 
 		"""
-		self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=test_size)
-		self.model = model
-		self.model.fit(self.X_train, self.y_train)
-		self.y_pred = self.model.predict(self.X_test)
+                self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=test_size)
+                self.model = model
+                self.model.fit(self.X_train, self.y_train)
+                self.y_pred = self.model.predict(self.X_test)
+                self.metrics = self._compute_metrics()
+                if send_to_llm_flag:
+                        self.send_metrics_to_llm()
 
 
 	@staticmethod
@@ -164,17 +174,30 @@ class Model:
 	# 		plt.show()
 
 	@staticmethod
-	def confusion_matrix(model, X_test, y_test):
-		"""
-		:param model: classifier
-		:param X_test: test data
-		:param y_test: test labels
-		:return: confusion matrix
+        def confusion_matrix(model, X_test, y_test):
+                """
+                :param model: classifier
+                :param X_test: test data
+                :param y_test: test labels
+                :return: confusion matrix
 
-		"""
-		y_pred = model.predict(X_test)
-		cm = confusion_matrix(y_test, y_pred)
-		return cm
+                """
+                y_pred = model.predict(X_test)
+                cm = confusion_matrix(y_test, y_pred)
+                return cm
+
+        def _compute_metrics(self) -> dict:
+                """Return basic classification metrics as a dictionary."""
+                return {
+                        "accuracy": accuracy_score(self.y_test, self.y_pred),
+                        "recall": recall_score(self.y_test, self.y_pred, average="binary"),
+                        "precision": precision_score(self.y_test, self.y_pred, average="binary"),
+                        "f1": f1_score(self.y_test, self.y_pred, average="binary"),
+                }
+
+        def send_metrics_to_llm(self) -> None:
+                """Send computed metrics to an attached LLM service."""
+                send_to_llm(f"Classification metrics: {self.metrics}")
 
 	# @staticmethod
 	# def compare_algorithms2df(sorted_by_measure='accuracy'):
