@@ -16,6 +16,7 @@ class Model:
         y: pd.Series,
         test_size: float = 0.2,
         send_to_llm_flag: bool = False,
+        server_url: str | None = None,
     ) -> None:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             X, y, test_size=test_size
@@ -24,6 +25,7 @@ class Model:
         self.model.fit(self.X_train, self.y_train)
         self.y_pred = self.model.predict(self.X_test)
         self.metrics = self._compute_metrics()
+        self.server_url = server_url
         if send_to_llm_flag:
             self.send_metrics_to_llm()
 
@@ -37,5 +39,8 @@ class Model:
 
     def send_metrics_to_llm(self) -> None:
         """Send computed metrics to an attached LLM service."""
-        send_to_llm(f"Regression metrics: {self.metrics}")
+        send_to_llm(
+            f"Regression metrics: {self.metrics}",
+            server_url=self.server_url,
+        )
     
