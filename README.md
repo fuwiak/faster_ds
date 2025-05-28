@@ -2,11 +2,19 @@
 
 `faster_llm` is a Python library that speeds up common data preprocessing and analysis tasks. It builds on familiar tools like NumPy, Pandas and scikit-learn while adding connectors for Large Language Model (LLM) frameworks such as LangChain and LlamaIndex.
 
+## Overview
+
+`faster_llm` bundles together many of the repetitive steps you face when preparing data and training models.  It provides helpers for loading CSV files, splitting columns into features and targets and handling missing values.  You will also find utilities for feature selection, normalisation and encoding of categorical variables.  Ready‑made pipelines wrap popular scikit‑learn and XGBoost algorithms so you can quickly train classification, regression or clustering models.  Results can be sent straight to your favourite LLM framework via the built‑in MCP client.
+
 ## Features
 
 - Utilities for splitting, encoding and cleaning tabular data
 - Ready‑to‑use pipelines for classical machine learning workflows
 - Helpers for passing results to LLM frameworks
+- Feature selection, model evaluation and hyperparameter tuning tools
+- Wrappers around common scikit‑learn and XGBoost models
+- Simple generator for producing fake data for experiments
+- MCP client for forwarding messages to LLM services
 
 ## Install from PyPI
 
