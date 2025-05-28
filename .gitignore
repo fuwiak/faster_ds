@@ -1,7 +1,7 @@
 # User Settings
-faster_ds_venv/
-faster_ds.egg-info/
-faster_ds-*/
+faster_llm_venv/
+faster_llm.egg-info/
+faster_llm-*/
 
 
 # Byte-compiled / optimized / DLL files

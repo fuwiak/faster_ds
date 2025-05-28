@@ -5,6 +5,6 @@
 
 include *.txt
 include *.rst
-recursive-include faster_ds *.*
+recursive-include faster_llm *.*
 recursive-exclude *.pyc
 recursive-exclude *.pyo

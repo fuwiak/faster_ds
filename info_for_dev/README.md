@@ -66,6 +66,6 @@ def abc(self, arg1, arg2,...):
 
 # Feature request 
 
-https://github.com/fuwiak/faster_ds/blob/master/.github/ISSUE_TEMPLATE/feature_request.md
+https://github.com/fuwiak/faster_llm/blob/master/.github/ISSUE_TEMPLATE/feature_request.md
 
 

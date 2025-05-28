@@ -1,21 +1,21 @@
 
-.. image:: https://travis-ci.org/fuwiak/faster_ds.svg?branch=master
-    :target: https://travis-ci.org/fuwiak/faster_ds?branch=master
+.. image:: https://travis-ci.org/fuwiak/faster_llm.svg?branch=master
+    :target: https://travis-ci.org/fuwiak/faster_llm?branch=master
 
-.. image:: https://codecov.io/gh/fuwiak/faster_ds/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/fuwiak/faster_ds
+.. image:: https://codecov.io/gh/fuwiak/faster_llm/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/fuwiak/faster_llm
 
-.. image:: https://img.shields.io/pypi/v/faster_ds.svg
-    :target: https://pypi.python.org/pypi/faster_ds
+.. image:: https://img.shields.io/pypi/v/faster_llm.svg
+    :target: https://pypi.python.org/pypi/faster_llm
 
-.. image:: https://img.shields.io/pypi/l/faster_ds.svg
-    :target: https://pypi.python.org/pypi/faster_ds
+.. image:: https://img.shields.io/pypi/l/faster_llm.svg
+    :target: https://pypi.python.org/pypi/faster_llm
 
-.. image:: https://img.shields.io/pypi/pyversions/faster_ds.svg
-    :target: https://pypi.python.org/pypi/faster_ds
+.. image:: https://img.shields.io/pypi/pyversions/faster_llm.svg
+    :target: https://pypi.python.org/pypi/faster_llm
 
 .. image:: https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social
-    :target: https://github.com/fuwiak/faster_ds
+    :target: https://github.com/fuwiak/faster_llm
 
 ------
 
@@ -24,22 +24,22 @@
       :target: `install`_
 
 .. image:: https://img.shields.io/badge/Link-GitHub-blue.svg
-      :target: https://github.com/fuwiak/faster_ds
+      :target: https://github.com/fuwiak/faster_llm
 
 .. image:: https://img.shields.io/badge/Link-Submit_Issue-blue.svg
-      :target: https://github.com/fuwiak/faster_ds/issues
+      :target: https://github.com/fuwiak/faster_llm/issues
 
 .. image:: https://img.shields.io/badge/Link-Request_Feature-blue.svg
-      :target: https://github.com/fuwiak/faster_ds/issues
+      :target: https://github.com/fuwiak/faster_llm/issues
 
 .. image:: https://img.shields.io/badge/Link-Download-blue.svg
-      :target: https://pypi.org/pypi/faster_ds#files
+      :target: https://pypi.org/pypi/faster_llm#files
 
 
-Welcome to ``faster_ds`` Documentation
+Welcome to ``faster_llm`` Documentation
 ==============================================================================
 
-Documentation for ``faster_ds``.
+Documentation for ``faster_llm``.
 
 
 .. _install:
@@ -47,24 +47,24 @@ Documentation for ``faster_ds``.
 Install
 ------------------------------------------------------------------------------
 
-``faster_ds`` is released on PyPI, so all you need is:
+``faster_llm`` is released on PyPI, so all you need is:
 
 .. code-block:: console
 
-    $ pip install faster_ds
+    $ pip install faster_llm
 
 To upgrade to latest version:
 
 .. code-block:: console
 
-    $ pip install --upgrade faster_ds
+    $ pip install --upgrade faster_llm
     
 `` Instruction for contributors ``
 
 click **fork** or type in console
 
-- git clone https://github.com/fuwiak/faster_ds
-- cd faster_ds
+- git clone https://github.com/fuwiak/faster_llm
+- cd faster_llm
 - create virtualenv
 - virtualenv -p python3.11 env_name
 - source env_name/bin/activate

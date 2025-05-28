@@ -13,7 +13,7 @@ from datetime import date
 from setuptools import setup, find_packages
 
 # --- import your package ---
-import faster_ds as package
+import faster_llm as package
 
 if __name__ == "__main__":
     # --- Automatically generate setup parameters ---
