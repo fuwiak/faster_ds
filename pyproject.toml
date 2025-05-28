@@ -9,7 +9,7 @@ repository = "https://github.com/fuwiak/faster_llm"
 packages = [{ include = "faster_llm" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.14"
 numpy = ">=1.24.1"
 pandas = ">=1.5.2"
 scikit-learn = ">=1.2.0"
