@@ -177,7 +177,7 @@ new_df = remove_to_lot_missing(df, threshold=0.7)
 # fake(sample) data
 ```{BASH}
 
-python3.11 -i generate_fake_data.py
+python3 -i generate_fake_data.py
 
 ```
 

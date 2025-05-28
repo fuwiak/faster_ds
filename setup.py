@@ -119,6 +119,8 @@ if __name__ == "__main__":
         "Operating System :: Unix",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ]
     """
     Full list can be found at: https://pypi.python.org/pypi?%3Aaction=list_classifiers
