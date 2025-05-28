@@ -39,6 +39,14 @@
 
 ---
 
+## 🛠️ Continuous Integration
+
+Our GitHub Actions workflows run after each commit or pull request. The pipeline
+executes lint checks, tests and rebuilds the project documentation.
+Successful builds automatically deploy the generated docs to GitHub Pages.
+
+---
+
 ## 🐞 Bug Reports & Feature Requests
 
 Feel free to report issues or request features via email or GitHub Issues.
