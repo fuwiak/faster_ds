@@ -1,6 +1,6 @@
 # faster_llm
 
-`faster_llm` is a Python library that speeds up common data preprocessing and analysis tasks. It builds on familiar tools like NumPy, Pandas and scikit-learn while adding connectors for Large Language Model (LLM) frameworks such as LangChain and LlamaIndex.
+`faster_llm` is a Python library that speeds up common data preprocessing and analysis tasks. It builds on familiar tools like NumPy, Pandas and scikit-learn while adding connectors for Large Language Model (LLM) frameworks such as LangChain and LlamaIndex.  Recent updates introduce lightweight helpers for other agent libraries including AutoGen and CrewAI.
 
 ## Overview
 
@@ -16,6 +16,7 @@
 - Lightweight wrappers for Keras, PyTorch and PyTorch Lightning
 - Simple generator for producing fake data for experiments
 - MCP client for forwarding messages to LLM services and AI agents
+- Wrappers for LangChain, LlamaIndex, AutoGen and CrewAI agents
 
 ## Quick Demo
 
@@ -79,6 +80,9 @@ python examples/classification_example.py
 
 The same helper can forward metrics from Keras, PyTorch or PyTorch Lightning
 models to AI agents by using the library's MCP integration.
+The new ``agents`` module also exposes utility functions to create LangChain
+``AIMessage`` objects, LlamaIndex ``Document`` instances, run simple CrewAI
+crews or spin up AutoGen assistants directly from your code.
 
 ## Bug Reports & Feature Requests
 

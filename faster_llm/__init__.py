@@ -10,3 +10,17 @@ __author_email__ = "poczta130@gmail.com"
 __maintainer__ = "unknown maintainer"
 __maintainer_email__ = "maintainer@example.com"
 __github_username__ = "fuwiak"
+
+from .agents import (
+    send_to_crewai,
+    send_with_autogen,
+    to_langchain_message,
+    to_llamaindex_document,
+)
+
+__all__ = [
+    "send_to_crewai",
+    "send_with_autogen",
+    "to_langchain_message",
+    "to_llamaindex_document",
+]
