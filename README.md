@@ -11,8 +11,9 @@
 * Rapid prototyping of preprocessing and analysis workflows
 * Connector modules to **LLM frameworks** like:
 
-  * [LangChain](https://github.com/langchain-ai/langchain)
-  * [LlamaIndex](https://github.com/jerryjliu/llama_index)
+* [LangChain](https://github.com/langchain-ai/langchain)
+* [LlamaIndex](https://github.com/jerryjliu/llama_index)
+* Tools supporting the **Model Context Protocol (MCP)**
 
 ---
 
