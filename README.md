@@ -47,6 +47,17 @@ Run the tests to verify everything is set up correctly:
 pytest
 ```
 
+## Examples
+
+Take a look at the `examples/` directory for runnable snippets. The
+`classification_example.py` script trains a small logistic regression
+model on the included Iris dataset and prints evaluation metrics via the
+`send_to_llm` helper:
+
+```bash
+python examples/classification_example.py
+```
+
 ## Bug Reports & Feature Requests
 
 Please open an issue on GitHub if you encounter a bug or have a feature request.
