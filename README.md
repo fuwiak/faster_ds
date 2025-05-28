@@ -84,6 +84,35 @@ The new ``agents`` module also exposes utility functions to create LangChain
 ``AIMessage`` objects, LlamaIndex ``Document`` instances, run simple CrewAI
 crews or spin up AutoGen assistants directly from your code.
 
+### Interpret metrics with MCP
+
+You can explicitly send your evaluation metrics to an MCP compatible service
+and retrieve its interpretation. The helper below trains a simple model,
+sends the metrics using the low level ``send_mcp_request`` function and prints
+the agent's reply:
+
+```python
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from faster_llm.ML.classification import Model
+from faster_llm.LLM.mcp import send_mcp_request
+
+df = pd.read_csv("./sample_data/iris.csv")
+X = df.drop(columns=["variety"])
+y = (df["variety"] == "Virginica").astype(int)
+
+model = Model(LogisticRegression(max_iter=200), X, y)
+metrics = model._compute_metrics()
+
+response = send_mcp_request(
+    "deliver_message",
+    {"message": f"Model metrics: {metrics}"},
+    "http://localhost:8000",
+)
+print(response.get("result"))
+```
+
+
 ## Bug Reports & Feature Requests
 
 Please open an issue on GitHub if you encounter a bug or have a feature request.
