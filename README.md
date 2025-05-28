@@ -1,80 +1,49 @@
-# 🚀 faster\_llm
+# faster_llm
 
-**`faster_llm`** is an **open-source Python framework** designed to accelerate and simplify routine data preprocessing and analysis. Inspired by the Scikit-Learn API, it integrates seamlessly with popular machine learning tools and modern LLM (Large Language Model) frameworks — making it an ideal bridge between traditional ML workflows and generative AI capabilities.
+`faster_llm` is a Python library that speeds up common data preprocessing and analysis tasks. It builds on familiar tools like NumPy, Pandas and scikit-learn while adding connectors for Large Language Model (LLM) frameworks such as LangChain and LlamaIndex.
 
----
+## Features
 
-## 🧠 Key Features
+- Utilities for splitting, encoding and cleaning tabular data
+- Ready‑to‑use pipelines for classical machine learning workflows
+- Helpers for passing results to LLM frameworks
 
-* Built on **NumPy**, **Pandas**, and **scikit-learn** APIs
-* Modular design for easy integration into existing ML pipelines
-* Rapid prototyping of preprocessing and analysis workflows
-* Connector modules to **LLM frameworks** like:
-
-  * [LangChain](https://github.com/langchain-ai/langchain)
-  * [LlamaIndex](https://github.com/jerryjliu/llama_index)
-
----
-
-## 🔌 LLM Integration
-
-`faster_llm` serves as a **bridge between classic ML pipelines and modern LLM tooling**.
-
-### You can:
-
-* Train models using your favorite frameworks like **scikit-learn**, **PyTorch**, or **Keras**
-* Automatically pass metrics, charts, and pipeline artifacts to LLMs (e.g., **Mistral-7B**)
-* Classification results can be sent directly to your LLM for further analysis
-* Generate reports, insights, or even code based on model results — all with minimal setup
-
-> Think of it as a seamless connector between your ML stack and smart assistants powered by LLMs.
-
----
-
-## 📚 Getting Started
-
-* **Feature List**: [`docs/`](docs/)
-* **Overview**: [`docs/overview*`](docs/)
-* **Contributing**: [`docs/contributing*`](docs/)
-
----
-
-## 🐳 Docker Compose
-
-Run the project inside containers using **Docker Compose**. The stack now
-includes monitoring and experiment tracking services:
-
-* **Prometheus** and **Grafana** for metrics
-* **MLflow** for experiment logging
-* **Langsmith** for LLM interaction logging
-
-Building the stack and executing the test suite can be done with:
+## Install from PyPI
 
 ```bash
-docker compose up --build
+pip install faster_llm
 ```
 
-This installs dependencies in a container and runs `pytest` against the
-codebase.
+After installation you can simply import the package:
 
----
+```python
+import faster_llm
+```
 
-## 🛠️ Continuous Integration
+## Run Locally
 
-Our GitHub Actions workflows run after each commit or pull request. The pipeline
-executes lint checks, tests and rebuilds the project documentation.
-Successful builds automatically deploy the generated docs to GitHub Pages.
+To work with the latest development version:
 
----
+```bash
+git clone https://github.com/fuwiak/faster_llm.git
+cd faster_llm
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pip install -e .
+```
 
-## 🐞 Bug Reports & Feature Requests
+Run the tests to verify everything is set up correctly:
 
-Feel free to report issues or request features via email or GitHub Issues.
+```bash
+pytest
+```
 
----
+## Bug Reports & Feature Requests
 
-## 📄 License
+Please open an issue on GitHub if you encounter a bug or have a feature request.
 
-This project is open-sourced under the MIT License. See `LICENSE.txt` for more information.
+## License
 
+This project is released under the MIT License. See `LICENSE.txt` for details.
 
