@@ -1,7 +1,10 @@
 """Utility helpers for interacting with Large Language Models."""
 
-from typing import Any, Dict
+from __future__ import annotations
 
+from typing import Any
+
+from .client import MCPClient
 from .mcp import send_mcp_request
 
 
@@ -20,4 +23,4 @@ def send_to_llm(message: Any, *, server_url: str | None = None) -> None:
         print(f"[LLM]: {message}")
 
 
-__all__ = ["send_to_llm", "send_mcp_request"]
+__all__ = ["send_to_llm", "send_mcp_request", "MCPClient"]
