@@ -4,11 +4,14 @@ from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
 
 from faster_ds.LLM import send_to_llm
+from faster_ds.doc import doc
+from .classification import Model as ClassificationModel
 
 
 class Model:
     """Simple regression model wrapper with optional LLM reporting."""
 
+    @doc(ClassificationModel.__init__)
     def __init__(
         self,
         model: sklearn.base.BaseEstimator,
@@ -37,8 +40,8 @@ class Model:
             "mse": mean_squared_error(self.y_test, self.y_pred),
         }
 
+    @doc(ClassificationModel.send_metrics_to_llm)
     def send_metrics_to_llm(self) -> None:
-        """Send computed metrics to an attached LLM service."""
         send_to_llm(
             f"Regression metrics: {self.metrics}",
             server_url=self.server_url,
