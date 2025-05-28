@@ -1,6 +1,6 @@
-# 🚀 faster\_ds
+# 🚀 faster\_llm
 
-**`faster_ds`** is an **open-source Python framework** designed to accelerate and simplify routine data preprocessing and analysis. Inspired by the Scikit-Learn API, it integrates seamlessly with popular machine learning tools and modern LLM (Large Language Model) frameworks — making it an ideal bridge between traditional ML workflows and generative AI capabilities.
+**`faster_llm`** is an **open-source Python framework** designed to accelerate and simplify routine data preprocessing and analysis. Inspired by the Scikit-Learn API, it integrates seamlessly with popular machine learning tools and modern LLM (Large Language Model) frameworks — making it an ideal bridge between traditional ML workflows and generative AI capabilities.
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## 🔌 LLM Integration
 
-`faster_ds` serves as a **bridge between classic ML pipelines and modern LLM tooling**.
+`faster_llm` serves as a **bridge between classic ML pipelines and modern LLM tooling**.
 
 ### You can:
 
@@ -48,5 +48,4 @@ Feel free to report issues or request features via email or GitHub Issues.
 
 This project is open-sourced under the MIT License. See `LICENSE.txt` for more information.
 
----
 
