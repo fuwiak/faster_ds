@@ -1,37 +1,52 @@
-# faster_ds
+# 🚀 faster\_ds
 
-Open Source Python based module based on Numpy, Pandas and scikit-learn API.
-The module follows the design principles of the Scikit-Learn library.
+**`faster_ds`** is an **open-source Python framework** designed to accelerate and simplify routine data preprocessing and analysis. Inspired by the Scikit-Learn API, it integrates seamlessly with popular machine learning tools and modern LLM (Large Language Model) frameworks — making it an ideal bridge between traditional ML workflows and generative AI capabilities.
 
+---
 
-Created to make faster boring stuff in preprocessing data and data analysis.
+## 🧠 Key Features
 
+* Built on **NumPy**, **Pandas**, and **scikit-learn** APIs
+* Modular design for easy integration into existing ML pipelines
+* Rapid prototyping of preprocessing and analysis workflows
+* Connector modules to **LLM frameworks** like:
 
-# Notes
-# Getting Started
- - List of features: docs/*
- - Overview features: docs/overview*
- - Contributing: docs/contributing*
+  * [LangChain](https://github.com/langchain-ai/langchain)
+  * [LlamaIndex](https://github.com/jerryjliu/llama_index)
 
+---
 
-# Bug Reports
-Send your bug reports and feature requests to: email
+## 🔌 LLM Integration
 
-# License
+`faster_ds` serves as a **bridge between classic ML pipelines and modern LLM tooling**.
 
+### You can:
 
-## LLM Integration
+* Train models using your favorite frameworks like **scikit-learn**, **PyTorch**, or **Keras**
+* Automatically pass metrics, charts, and pipeline artifacts to LLMs (e.g., **Mistral-7B**)
+* Generate reports, insights, or even code based on model results — all with minimal setup
 
-``faster_ds`` can serve as a bridge between your favourite ML stack and Large
-Language Model frameworks. The API is designed to work with tools like
-PyTorch, Keras and scikit-learn while easily connecting with libraries such as
-[LangChain](https://github.com/langchain-ai/langchain) or
-[LlamaIndex](https://github.com/jerryjliu/llama_index).
+> Think of it as a seamless connector between your ML stack and smart assistants powered by LLMs.
 
-Model metrics, plots and other artifacts produced by the ML pipeline can be
-passed to a language model (for example ``mistral-7B``) using a small connector
-module provided in ``faster_ds``. This enables the LLM to interpret results or
-generate reports from the training process with minimal setup.
+---
 
+## 📚 Getting Started
 
+* **Feature List**: [`docs/`](docs/)
+* **Overview**: [`docs/overview*`](docs/)
+* **Contributing**: [`docs/contributing*`](docs/)
+
+---
+
+## 🐞 Bug Reports & Feature Requests
+
+Feel free to report issues or request features via email or GitHub Issues.
+
+---
+
+## 📄 License
+
+This project is open-sourced under the MIT License. See `LICENSE.txt` for more information.
+
+---
 
