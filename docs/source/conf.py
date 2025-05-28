@@ -30,9 +30,18 @@ release = '0.0.2'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-'rinoh.frontend.sphinx'
-]
+extensions = []
+
+# The documentation optionally supports rendering PDFs with the rinohtype
+# extension.  This dependency isn't required for the HTML build so we try to
+# load it lazily.  If it's not available the rest of the documentation will
+# still build correctly.
+try:
+    import rinoh.frontend.sphinx  # noqa: F401
+except Exception:
+    pass
+else:
+    extensions.append('rinoh.frontend.sphinx')
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
