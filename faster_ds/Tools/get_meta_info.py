@@ -3,6 +3,7 @@ import pandas as pd
 
 
 class GetInfo:
+    """Helper methods for obtaining metadata about data frames."""
     
     @staticmethod
     def get_info(df):
