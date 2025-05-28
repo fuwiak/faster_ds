@@ -99,3 +99,6 @@ webcolors>=1.12
 webencodings>=0.5.1
 websocket-client>=1.4.2
 widgetsnbextension>=4.0.5
+
+mlflow>=2.0.0
+langsmith>=0.1.0

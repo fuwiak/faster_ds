@@ -21,6 +21,8 @@ class BaseModel:
     test_size: float = 0.2
     send_to_llm_flag: bool = False
     server_url: str | None = None
+    mlflow_tracking: bool = False
+    langsmith_url: str | None = None
     y_pred: pd.Series | None = field(init=False, default=None)
 
     def __post_init__(self) -> None:
@@ -29,12 +31,21 @@ class BaseModel:
         )
         self.model.fit(self.X_train, self.y_train)
         self.y_pred = self.model.predict(self.X_test)
+        metrics = self._compute_metrics()
         if self.send_to_llm_flag:
-            self.send_metrics_to_llm()
+            self.send_metrics_to_llm(metrics)
+        if self.mlflow_tracking:
+            from faster_llm.integrations import log_mlflow_metrics
+            log_mlflow_metrics(metrics)
+        if self.langsmith_url:
+            from faster_llm.integrations import log_to_langsmith
+            log_to_langsmith({"metrics": metrics}, self.langsmith_url)
 
     def _compute_metrics(self) -> dict:
         raise NotImplementedError
 
-    def send_metrics_to_llm(self) -> None:
-        metrics = self._compute_metrics()
+    def send_metrics_to_llm(self, metrics: dict | None = None) -> None:
+        if metrics is None:
+            metrics = self._compute_metrics()
         send_to_llm(f"Model metrics: {metrics}", server_url=self.server_url)
+

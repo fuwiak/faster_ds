@@ -6,6 +6,7 @@ from typing import Any
 
 from .client import MCPClient
 from .mcp import send_mcp_request
+from ..integrations import LLM_MESSAGES_SENT
 
 
 def send_to_llm(message: Any, *, server_url: str | None = None) -> None:
@@ -21,6 +22,8 @@ def send_to_llm(message: Any, *, server_url: str | None = None) -> None:
         send_mcp_request("deliver_message", {"message": message}, server_url)
     else:
         print(f"[LLM]: {message}")
+    # record metrics for monitoring
+    LLM_MESSAGES_SENT.inc()
 
 
 __all__ = ["send_to_llm", "send_mcp_request", "MCPClient"]
