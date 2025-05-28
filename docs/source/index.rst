@@ -10,8 +10,10 @@ Welcome to faster_ds's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+CI/CD
+-----
 
-
+Project documentation is built and deployed by GitHub Actions after every commit and pull request. The workflow ensures tests pass before deploying the updated docs.
 
 Indices and tables
 ==================
